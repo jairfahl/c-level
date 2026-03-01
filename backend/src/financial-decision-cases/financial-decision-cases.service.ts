@@ -201,7 +201,7 @@ export class FinancialDecisionCasesService {
 
     if (record.risks.length < 3) {
       throw new UnprocessableEntityException(
-        'At least 3 risks must be documented before analysing a case',
+        'At least 3 risks must be documented before analyzing a case',
       );
     }
 

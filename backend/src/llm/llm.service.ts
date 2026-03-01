@@ -77,7 +77,7 @@ export class LlmService {
 
   private buildRecommendationPrompt(caseData: any): string {
     return `
-Analyse the following financial decision case and provide a structured CFO-level recommendation.
+Analyze the following financial decision case and provide a structured CFO-level recommendation.
 
 Case Title: ${caseData.title}
 Description: ${caseData.description}
