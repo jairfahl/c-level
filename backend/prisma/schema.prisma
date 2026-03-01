@@ -1,0 +1,179 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum FinancialDomain {
+  CAPEX
+  OPEX
+  REVENUE
+  TREASURY
+  RISK_MANAGEMENT
+  COMPLIANCE
+  STRATEGY
+  M_AND_A
+}
+
+enum DecisionState {
+  DRAFT
+  CLASSIFIED
+  STRUCTURED
+  ANALYZED
+  RECOMMENDED
+  DECIDED
+  UNDER_REVIEW
+  CLOSED
+}
+
+enum DecisionType {
+  INVESTMENT
+  DIVESTMENT
+  FINANCING
+  OPERATIONAL_CHANGE
+  RISK_MITIGATION
+  STRATEGIC_PARTNERSHIP
+  ACQUISITION
+  RESTRUCTURING
+}
+
+model FinancialDecisionCase {
+  id                       String          @id @default(uuid())
+  title                    String
+  description              String
+  financialDomain          FinancialDomain
+  decisionType             DecisionType
+  state                    DecisionState   @default(DRAFT)
+  impactScore              Int
+  externalAgentsPresent    Boolean         @default(false)
+  scenarioAnalysisRequired Boolean         @default(false)
+  gameTheoryTriggered      Boolean         @default(false)
+  createdById              String
+  createdAt                DateTime        @default(now())
+  updatedAt                DateTime        @updatedAt
+
+  assumptions      FinancialAssumption[]
+  risks            FinancialRisk[]
+  metricsImpacted  FinancialMetricImpacted[]
+  decisions        Decision[]
+  reviews          Review[]
+  stateTransitions StateTransition[]
+  auditLogs        AuditLog[]
+
+  @@map("financial_decision_cases")
+}
+
+model FinancialAssumption {
+  id          String   @id @default(uuid())
+  caseId      String
+  description String
+  source      String
+  confidence  Float
+  validatedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("financial_assumptions")
+}
+
+model FinancialRisk {
+  id              String  @id @default(uuid())
+  caseId          String
+  description     String
+  probability     Float
+  impactScore     Int
+  mitigationPlan  String?
+  residualRisk    Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("financial_risks")
+}
+
+model FinancialMetricImpacted {
+  id                 String   @id @default(uuid())
+  caseId             String
+  metricName         String
+  currentValue       Float
+  projectedValue     Float
+  unit               String
+  timeHorizonMonths  Int
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("financial_metrics_impacted")
+}
+
+model Decision {
+  id                       String    @id @default(uuid())
+  caseId                   String
+  recommendation           String
+  recommendedOption        String
+  executiveDecision        String?
+  divergenceFlag           Boolean   @default(false)
+  divergenceJustification  String?
+  gameTheoryAnalysis       Json?
+  decidedAt                DateTime?
+  decidedById              String?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("decisions")
+}
+
+model Review {
+  id               String   @id @default(uuid())
+  caseId           String
+  actualOutcome    String
+  varianceAnalysis String
+  lessonsLearned   String
+  reviewedAt       DateTime
+  reviewedById     String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model StateTransition {
+  id             String        @id @default(uuid())
+  caseId         String
+  fromState      DecisionState
+  toState        DecisionState
+  triggeredById  String
+  reason         String?
+  transitionedAt DateTime      @default(now())
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("state_transitions")
+}
+
+model AuditLog {
+  id            String   @id @default(uuid())
+  caseId        String
+  action        String
+  performedById String
+  metadata      Json?
+  performedAt   DateTime @default(now())
+
+  case FinancialDecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("audit_logs")
+}
