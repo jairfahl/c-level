@@ -1,0 +1,828 @@
+openapi: "3.0.3"
+
+info:
+  title: CFO Mentor API
+  description: >
+    API de governança cognitiva decisória para CFOs.
+    Impõe rigor metodológico obrigatório ao processo decisório financeiro.
+    Alinhada ao APQC Domínio 9 (Manage Financial Resources).
+  version: "2.0.0"
+  contact:
+    name: FCA Soluções – Mentor C-Level
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://api.mentor-cfo.internal/v1
+    description: Produção
+  - url: https://api-staging.mentor-cfo.internal/v1
+    description: Staging
+
+# ──────────────────────────────────────────────────────────────
+#  SEGURANÇA
+# ──────────────────────────────────────────────────────────────
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  # ────────────────────────────────────────────────────────────
+  #  SCHEMAS (modelos reutilizáveis)
+  # ────────────────────────────────────────────────────────────
+  schemas:
+
+    # ── ENUMs ──────────────────────────────────────────────────
+    FinancialDomain:
+      type: string
+      enum: [planning, reporting, treasury, funding, risk]
+      description: Domínio financeiro APQC Domínio 9
+
+    DecisionState:
+      type: string
+      enum:
+        - DRAFT
+        - CLASSIFIED
+        - STRUCTURED
+        - ANALYZED
+        - RECOMMENDED
+        - DECIDED
+        - UNDER_REVIEW
+        - CLOSED
+      description: Estado atual do caso decisório na máquina de estados
+
+    DecisionType:
+      type: string
+      enum:
+        - budget_adjustment
+        - forecast_revision
+        - capital_allocation
+        - debt_structuring
+        - liquidity_management
+        - risk_hedging
+        - cost_reduction
+        - investment_evaluation
+
+    TimeHorizon:
+      type: string
+      enum: [short, medium, long]
+
+    FrameworkType:
+      type: string
+      enum:
+        - pdca
+        - scenario_analysis
+        - game_theory
+        - trade_off
+        - risk_matrix
+        - capital_allocation
+      description: Framework analítico selecionado automaticamente pela engine determinística
+
+    # ── Objetos principais ─────────────────────────────────────
+    FinancialDecisionCase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          example: Revisão de forecast Q3 sob cenário de alta de juros
+        description:
+          type: string
+        financial_domain:
+          $ref: "#/components/schemas/FinancialDomain"
+        impact_score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: 1=baixo … 5=crítico
+        financial_exposure:
+          type: number
+          format: double
+          description: Exposição financeira em BRL
+          example: 12500000.00
+        time_horizon:
+          $ref: "#/components/schemas/TimeHorizon"
+        external_agents_present:
+          type: boolean
+          default: false
+          description: true = há contraparte externa (banco, competidor, regulador)
+        decision_type:
+          $ref: "#/components/schemas/DecisionType"
+        framework_selected:
+          $ref: "#/components/schemas/FrameworkType"
+          readOnly: true
+        scenario_required:
+          type: boolean
+          readOnly: true
+          description: Gerado automaticamente. true quando impact_score >= 4
+        state:
+          $ref: "#/components/schemas/DecisionState"
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+
+    FinancialDecisionCaseFull:
+      allOf:
+        - $ref: "#/components/schemas/FinancialDecisionCase"
+        - type: object
+          properties:
+            assumptions:
+              type: array
+              items:
+                $ref: "#/components/schemas/Assumption"
+            risks:
+              type: array
+              items:
+                $ref: "#/components/schemas/Risk"
+            financial_metrics_impacted:
+              type: array
+              items:
+                type: string
+            recommendation:
+              type: string
+              nullable: true
+            executive_decision:
+              type: string
+              nullable: true
+            divergence_flag:
+              type: boolean
+              nullable: true
+
+    Assumption:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        text:
+          type: string
+        is_implicit:
+          type: boolean
+          description: true = premissa implícita capturada pelo Mentor (não declarada originalmente)
+          readOnly: true
+
+    Risk:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        text:
+          type: string
+        materialized:
+          type: boolean
+          default: false
+          description: Atualizado na revisão pós-decisão
+
+    StateTransition:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        from_state:
+          $ref: "#/components/schemas/DecisionState"
+          nullable: true
+        to_state:
+          $ref: "#/components/schemas/DecisionState"
+        transitioned_at:
+          type: string
+          format: date-time
+        triggered_by:
+          type: string
+          nullable: true
+
+    AnalysisResult:
+      type: object
+      properties:
+        recommendation:
+          type: string
+        framework_selected:
+          $ref: "#/components/schemas/FrameworkType"
+        financial_metrics_impacted:
+          type: array
+          items:
+            type: string
+        scenario_summary:
+          type: string
+          nullable: true
+          description: Preenchido apenas quando scenario_required = true
+        implicit_assumptions_found:
+          type: array
+          items:
+            type: string
+          description: Premissas implícitas detectadas pelo LLM durante a análise
+        game_theory_model:
+          type: object
+          nullable: true
+          description: Preenchido apenas quando Game Theory está ativa
+          properties:
+            players:
+              type: array
+              items:
+                type: string
+            strategies:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+            payoffs:
+              type: object
+              additionalProperties:
+                type: string
+            equilibrium:
+              type: string
+              nullable: true
+            strategic_risk:
+              type: string
+        llm_unavailable:
+          type: boolean
+          default: false
+          description: true = LLM indisponível; análise em modo determinístico puro (fallback)
+
+    PaginatedCases:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/FinancialDecisionCase"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    # ── Erros padronizados ─────────────────────────────────────
+    ErrorResponse:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+          description: Código de erro legível por máquina
+        message:
+          type: string
+          description: Descrição legível por humano
+        details:
+          type: object
+          additionalProperties: true
+
+  # ────────────────────────────────────────────────────────────
+  #  RESPOSTAS REUTILIZÁVEIS
+  # ────────────────────────────────────────────────────────────
+  responses:
+    Unauthorized:
+      description: Token ausente ou expirado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error: UNAUTHORIZED
+            message: Token JWT inválido ou expirado
+
+    NotFound:
+      description: Caso decisório não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error: CASE_NOT_FOUND
+            message: Nenhum caso encontrado com o ID informado
+
+    InvalidStateTransition:
+      description: Transição de estado inválida
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error: INVALID_STATE_TRANSITION
+            message: "Transição inválida: DRAFT → ANALYZED. Transições permitidas: DRAFT → CLASSIFIED"
+
+    ValidationError:
+      description: Erro de validação de campos
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error: INSUFFICIENT_ASSUMPTIONS
+            message: São necessárias no mínimo 3 premissas financeiras. Fornecidas: 2
+
+    InternalError:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+# ──────────────────────────────────────────────────────────────
+#  PATHS
+# ──────────────────────────────────────────────────────────────
+paths:
+
+  # ============================================================
+  #  FINANCIAL DECISION CASES
+  # ============================================================
+  /financial-decision-cases:
+
+    get:
+      operationId: listFinancialDecisionCases
+      summary: Listar casos decisórios
+      description: Retorna lista paginada de casos com filtros opcionais.
+      tags: [Financial Decision Cases]
+      parameters:
+        - name: domain
+          in: query
+          schema:
+            $ref: "#/components/schemas/FinancialDomain"
+          description: Filtrar por domínio financeiro
+        - name: state
+          in: query
+          schema:
+            $ref: "#/components/schemas/DecisionState"
+          description: Filtrar por estado
+        - name: decision_type
+          in: query
+          schema:
+            $ref: "#/components/schemas/DecisionType"
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Lista paginada de casos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedCases"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    post:
+      operationId: createFinancialDecisionCase
+      summary: Criar novo caso decisório
+      description: Abre um novo caso decisório financeiro. Estado inicial = DRAFT.
+      tags: [Financial Decision Cases]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, description, financial_domain, financial_exposure, decision_type]
+              properties:
+                title:
+                  type: string
+                  minLength: 5
+                  example: Reestruturação da dívida bancária de longo prazo
+                description:
+                  type: string
+                  minLength: 20
+                financial_domain:
+                  $ref: "#/components/schemas/FinancialDomain"
+                financial_exposure:
+                  type: number
+                  format: double
+                  minimum: 0.01
+                  example: 45000000.00
+                time_horizon:
+                  $ref: "#/components/schemas/TimeHorizon"
+                external_agents_present:
+                  type: boolean
+                  default: false
+                decision_type:
+                  $ref: "#/components/schemas/DecisionType"
+      responses:
+        "201":
+          description: Caso criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  state:
+                    type: string
+                    example: DRAFT
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /financial-decision-cases/{id}:
+
+    get:
+      operationId: getFinancialDecisionCase
+      summary: Obter caso decisório completo
+      description: Retorna o caso com todas as premissas, riscos, métricas, recomendação e decisão executiva.
+      tags: [Financial Decision Cases]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Caso completo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FinancialDecisionCaseFull"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  # ============================================================
+  #  STATE MACHINE TRANSITIONS
+  # ============================================================
+  /financial-decision-cases/{id}/classify:
+    put:
+      operationId: classifyDecisionCase
+      summary: Classificar caso (DRAFT → CLASSIFIED)
+      description: >
+        Define o impact_score do caso. A engine determinística seleciona
+        automaticamente o framework analítico e calcula scenario_required.
+      tags: [State Machine]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [impact_score]
+              properties:
+                impact_score:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        "200":
+          description: Caso classificado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    example: CLASSIFIED
+                  framework_selected:
+                    $ref: "#/components/schemas/FrameworkType"
+                  scenario_required:
+                    type: boolean
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/InvalidStateTransition"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /financial-decision-cases/{id}/structure:
+    put:
+      operationId: structureDecisionCase
+      summary: Estruturar caso (CLASSIFIED → STRUCTURED)
+      description: >
+        Registra premissas e riscos financeiros.
+        Validação: mínimo 3 premissas e 3 riscos obrigatórios.
+      tags: [State Machine]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [assumptions, risks]
+              properties:
+                assumptions:
+                  type: array
+                  minItems: 3
+                  items:
+                    type: string
+                  example:
+                    - Taxa Selic se mantém em 10,5% ao longo do horizon
+                    - Receita crescerá 8% no próximo exercício
+                    - Linha de crédito rotativo permanece disponível
+                risks:
+                  type: array
+                  minItems: 3
+                  items:
+                    type: string
+                  example:
+                    - Reversão do ciclo de afrouxamento monetário
+                    - Deterioração do rating de crédito
+                    - Concentração de vencimentos em janela curta
+      responses:
+        "200":
+          description: Caso estruturado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    example: STRUCTURED
+                  assumptions_count:
+                    type: integer
+                  risks_count:
+                    type: integer
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/InvalidStateTransition"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /financial-decision-cases/{id}/analyze:
+    put:
+      operationId: analyzeDecisionCase
+      summary: Analisar caso (STRUCTURED → ANALYZED → RECOMMENDED)
+      description: >
+        Aciona a camada LLM com o framework selecionado.
+        Retorna recomendação estruturada, métricas impactadas e análise de cenários (se aplicável).
+        Em caso de indisponibilidade do LLM, opera em modo determinístico (fallback).
+      tags: [State Machine]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Análise concluída e recomendação gerada
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/AnalysisResult"
+                  - type: object
+                    properties:
+                      state:
+                        type: string
+                        example: RECOMMENDED
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/InvalidStateTransition"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /financial-decision-cases/{id}/decide:
+    put:
+      operationId: recordExecutiveDecision
+      summary: Registrar decisão executiva (RECOMMENDED → DECIDED)
+      description: >
+        Registra a decisão do executivo. Se divergir da recomendação do Mentor,
+        divergence_flag = true é registrado automaticamente.
+      tags: [State Machine]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [executive_decision]
+              properties:
+                executive_decision:
+                  type: string
+                  minLength: 10
+                  example: Optamos por renegociar apenas 60% da dívida neste momento, mantendo flexibilidade para o restante.
+                divergence_justification:
+                  type: string
+                  nullable: true
+                  description: Justificativa obrigatória quando houver divergência
+                monitoring_criteria:
+                  type: array
+                  items:
+                    type: string
+                  description: Critérios de monitoramento definidos pelo executivo ao divergir
+      responses:
+        "200":
+          description: Decisão registrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    example: DECIDED
+                  divergence_flag:
+                    type: boolean
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/InvalidStateTransition"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /financial-decision-cases/{id}/review:
+    put:
+      operationId: reviewDecisionCase
+      summary: Revisão pós-decisão (DECIDED/UNDER_REVIEW → CLOSED)
+      description: >
+        Captura o resultado real da decisão para aprendizado.
+        Compara projeção vs realização. Alimenta o módulo de heurísticas.
+      tags: [State Machine]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [outcome_summary]
+              properties:
+                outcome_summary:
+                  type: string
+                  minLength: 20
+                forecast_accuracy_score:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                  description: 1=muito abaixo do previsto … 10=exatamente conforme previsto
+                risk_realization_rate:
+                  type: number
+                  format: double
+                  minimum: 0
+                  maximum: 100
+                  description: Percentual de riscos identificados que se concretizaram
+                capital_allocation_efficiency_score:
+                  type: number
+                  format: double
+                  minimum: 0
+                  maximum: 100
+                divergence_outcome_flag:
+                  type: boolean
+                  description: true = a divergência do executivo resultou em pior resultado
+      responses:
+        "200":
+          description: Revisão registrada e caso encerrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: string
+                    example: CLOSED
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/InvalidStateTransition"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  # ============================================================
+  #  AUDITORIA
+  # ============================================================
+  /financial-decision-cases/{id}/state-transitions:
+    get:
+      operationId: listStateTransitions
+      summary: Histórico de transições de estado
+      description: Retorna trilha completa de auditoria das transições de estado do caso.
+      tags: [Audit]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Histórico de transições
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  decision_case_id:
+                    type: string
+                    format: uuid
+                  transitions:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/StateTransition"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+# ──────────────────────────────────────────────────────────────
+#  TAGS
+# ──────────────────────────────────────────────────────────────
+tags:
+  - name: Financial Decision Cases
+    description: CRUD e consulta de casos decisórios financeiros
+  - name: State Machine
+    description: Transições obrigatórias do protocolo decisório
+  - name: Audit
+    description: Trilha de auditoria e histórico de transições
+
+# ──────────────────────────────────────────────────────────────
+#  TABELA DE TRANSIÇÕES VÁLIDAS (referência)
+# ──────────────────────────────────────────────────────────────
+# Estado atual      → Estado seguinte     Endpoint
+# ─────────────────────────────────────────────────────────────
+# DRAFT             → CLASSIFIED          PUT /classify
+# CLASSIFIED        → STRUCTURED          PUT /structure
+# STRUCTURED        → ANALYZED            PUT /analyze
+# ANALYZED          → RECOMMENDED         PUT /analyze (automático)
+# RECOMMENDED       → DECIDED             PUT /decide
+# DECIDED           → UNDER_REVIEW        (automático após 90 dias)
+# UNDER_REVIEW      → CLOSED              PUT /review
+# ─────────────────────────────────────────────────────────────
+# Qualquer outra transição retorna HTTP 409 INVALID_STATE_TRANSITION
