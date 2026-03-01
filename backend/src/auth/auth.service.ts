@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 interface User {
   id: string;
@@ -7,18 +8,19 @@ interface User {
   role: string;
 }
 
-const HARDCODED_USERS: User[] = [
-  { id: 'admin', username: 'admin', role: 'CFO' },
-];
-
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
 
   validateUser(username: string, password: string): User | null {
-    // In production this would query the users table
-    if (username === 'admin' && password === 'admin123') {
-      return HARDCODED_USERS[0];
+    // In production replace with a proper users table and bcrypt password hashing
+    const adminUsername = this.configService.get<string>('ADMIN_USERNAME') || 'admin';
+    const adminPassword = this.configService.get<string>('ADMIN_PASSWORD') || 'admin123';
+    if (username === adminUsername && password === adminPassword) {
+      return { id: adminUsername, username: adminUsername, role: 'CFO' };
     }
     return null;
   }

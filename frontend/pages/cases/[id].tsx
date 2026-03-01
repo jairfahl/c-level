@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react';
+import { useEffect, useState, FormEvent, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import api from '../../lib/api';
@@ -303,7 +303,11 @@ export default function CaseDetailPage() {
   const [activeTab, setActiveTab] = useState<Tab>('overview');
 
   // Classify form state
-  const [classifyForm, setClassifyForm] = useState({ classification: '', rationale: '' });
+  const [classifyForm, setClassifyForm] = useState({
+    financialDomain: '',
+    decisionType: '',
+    classificationRationale: '',
+  });
   const [showClassifyForm, setShowClassifyForm] = useState(false);
 
   // Decision form state
@@ -314,14 +318,13 @@ export default function CaseDetailPage() {
 
   useEffect(() => {
     if (!Cookies.get('token')) {
-      router.replace('/login');
+      void router.replace('/login');
       return;
     }
-    if (id) fetchCase();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (id) void fetchCase();
   }, [id, router]);
 
-  async function fetchCase() {
+  const fetchCase = useCallback(async () => {
     setLoading(true);
     try {
       const res = await api.get(`/financial-decision-cases/${id}`);
@@ -331,9 +334,9 @@ export default function CaseDetailPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [id]);
 
-  async function performAction(endpoint: string, method: 'post' | 'patch' = 'post', body?: unknown) {
+  async function performAction(endpoint: string, method: 'post' | 'put' | 'patch' = 'put', body?: unknown) {
     setActionError('');
     setActionLoading(true);
     try {
@@ -359,7 +362,7 @@ export default function CaseDetailPage() {
   // ── Action Handlers ──────────────────────────────────────────────────────
   async function handleClassify(e: FormEvent) {
     e.preventDefault();
-    await performAction(`/financial-decision-cases/${id}/classify`, 'post', classifyForm);
+    await performAction(`/financial-decision-cases/${id}/classify`, 'put', classifyForm);
     setShowClassifyForm(false);
   }
 
@@ -380,12 +383,12 @@ export default function CaseDetailPage() {
 
   async function handleDecision(e: FormEvent) {
     e.preventDefault();
-    await performAction(`/financial-decision-cases/${id}/decide`, 'post', decisionForm);
+    await performAction(`/financial-decision-cases/${id}/decide`, 'put', decisionForm);
   }
 
   async function handleSubmitReview(e: FormEvent) {
     e.preventDefault();
-    await performAction(`/financial-decision-cases/${id}/review`, 'post', reviewForm);
+    await performAction(`/financial-decision-cases/${id}/review`, 'put', reviewForm);
   }
 
   async function handleCloseCase() {
@@ -538,22 +541,36 @@ export default function CaseDetailPage() {
               <form onSubmit={handleClassify} className="bg-slate-50 rounded-xl p-4 space-y-3 border border-slate-200">
                 <p className="text-sm font-semibold text-slate-700">Classify this Case</p>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">Classification Label *</label>
-                  <input
-                    required type="text"
-                    value={classifyForm.classification}
-                    onChange={(e) => setClassifyForm({ ...classifyForm, classification: e.target.value })}
-                    placeholder="e.g. HIGH_PRIORITY, STRATEGIC, ROUTINE"
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Financial Domain *</label>
+                  <select
+                    required
+                    value={classifyForm.financialDomain}
+                    onChange={(e) => setClassifyForm({ ...classifyForm, financialDomain: e.target.value })}
                     className={inputCls()}
-                  />
+                  >
+                    <option value="">Select domain…</option>
+                    {Object.entries(DOMAIN_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                  </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">Rationale *</label>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Decision Type *</label>
+                  <select
+                    required
+                    value={classifyForm.decisionType}
+                    onChange={(e) => setClassifyForm({ ...classifyForm, decisionType: e.target.value })}
+                    className={inputCls()}
+                  >
+                    <option value="">Select type…</option>
+                    {Object.entries(TYPE_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Classification Rationale *</label>
                   <textarea
                     required rows={2}
-                    value={classifyForm.rationale}
-                    onChange={(e) => setClassifyForm({ ...classifyForm, rationale: e.target.value })}
-                    placeholder="Why is this classification appropriate?"
+                    value={classifyForm.classificationRationale}
+                    onChange={(e) => setClassifyForm({ ...classifyForm, classificationRationale: e.target.value })}
+                    placeholder="Why is this domain and decision type classification appropriate?"
                     className={inputCls()}
                   />
                 </div>

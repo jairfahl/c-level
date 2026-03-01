@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
@@ -43,13 +43,13 @@ export default function DashboardPage() {
   useEffect(() => {
     const token = Cookies.get('token');
     if (!token) {
-      router.replace('/login');
+      void router.replace('/login');
       return;
     }
-    fetchCases();
-  }, []);
+    void fetchCases();
+  }, [router]);
 
-  async function fetchCases() {
+  const fetchCases = useCallback(async () => {
     try {
       const res = await api.get('/financial-decision-cases');
       setCases(res.data?.data || res.data || []);
@@ -58,7 +58,7 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   const stateCounts = STATE_ORDER.reduce((acc, s) => {
     acc[s] = cases.filter((c) => c.state === s).length;

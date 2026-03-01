@@ -67,4 +67,9 @@ export class FinancialDecisionCasesController {
   review(@Param('id') id: string, @Body() dto: ReviewCaseDto, @Request() req) {
     return this.service.review(id, dto, req.user.id);
   }
+
+  @Put(':id/close')
+  close(@Param('id') id: string, @Request() req) {
+    return this.service.close(id, req.user.id);
+  }
 }

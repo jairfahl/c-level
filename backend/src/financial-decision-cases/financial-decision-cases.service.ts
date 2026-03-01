@@ -468,4 +468,38 @@ export class FinancialDecisionCasesService {
       return updated;
     });
   }
+
+  async close(id: string, userId: string) {
+    const record = await this.findOne(id);
+    this.stateMachine.validateTransition(record.state, DecisionState.CLOSED);
+
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.financialDecisionCase.update({
+        where: { id },
+        data: { state: DecisionState.CLOSED },
+        include: { assumptions: true, risks: true, metricsImpacted: true, decisions: true, reviews: true },
+      });
+
+      await tx.stateTransition.create({
+        data: {
+          caseId: id,
+          fromState: record.state,
+          toState: DecisionState.CLOSED,
+          triggeredById: userId,
+          reason: 'Case closed after review',
+        },
+      });
+
+      await tx.auditLog.create({
+        data: {
+          caseId: id,
+          action: 'STATE_TRANSITION',
+          performedById: userId,
+          metadata: { from: record.state, to: DecisionState.CLOSED },
+        },
+      });
+
+      return updated;
+    });
+  }
 }
