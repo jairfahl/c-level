@@ -5,6 +5,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     router.replace('/dashboard');
-  }, [router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return null;
 }

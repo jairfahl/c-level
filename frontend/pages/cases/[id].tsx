@@ -318,7 +318,8 @@ export default function CaseDetailPage() {
       return;
     }
     if (id) fetchCase();
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, router]);
 
   async function fetchCase() {
     setLoading(true);
