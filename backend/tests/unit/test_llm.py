@@ -537,8 +537,12 @@ class TestLLMService:
 
     @pytest.fixture
     def mock_client(self) -> MagicMock:
+        from app.llm.client import CompletionResult
         client = MagicMock()
         client.complete = AsyncMock(return_value=_VALID_LLM_RAW)
+        client.complete_with_usage = AsyncMock(
+            return_value=CompletionResult(text=_VALID_LLM_RAW, input_tokens=100, output_tokens=200)
+        )
         return client
 
     @pytest.mark.asyncio
@@ -550,7 +554,7 @@ class TestLLMService:
 
         result = await service.analyze(ctx, session)
 
-        mock_client.complete.assert_awaited_once()
+        mock_client.complete_with_usage.assert_awaited_once()
         assert result.recommendation == _VALID_LLM_JSON_PAYLOAD["recommendation"]
         assert result.llm_unavailable is False
 
@@ -580,10 +584,10 @@ class TestLLMService:
         await service.analyze(ctx, session)
 
         # Second call — LLM should NOT be called again
-        mock_client.complete.reset_mock()
+        mock_client.complete_with_usage.reset_mock()
         result2 = await service.analyze(ctx, session)
 
-        mock_client.complete.assert_not_awaited()
+        mock_client.complete_with_usage.assert_not_awaited()
         assert result2.llm_unavailable is False
 
     @pytest.mark.asyncio
@@ -593,6 +597,7 @@ class TestLLMService:
         session = _mock_session()
         failing_client = MagicMock()
         failing_client.complete = AsyncMock(side_effect=ConnectionError("API unreachable"))
+        failing_client.complete_with_usage = AsyncMock(side_effect=ConnectionError("API unreachable"))
 
         service = LLMService(client=failing_client, cache=cache)
         result = await service.analyze(ctx, session)
@@ -604,9 +609,13 @@ class TestLLMService:
     async def test_parse_error_triggers_fallback(
         self, ctx: PromptContext, cache: LLMCache
     ):
+        from app.llm.client import CompletionResult
         session = _mock_session()
         bad_client = MagicMock()
         bad_client.complete = AsyncMock(return_value="not valid json at all!")
+        bad_client.complete_with_usage = AsyncMock(
+            return_value=CompletionResult(text="not valid json at all!", input_tokens=0, output_tokens=0)
+        )
 
         service = LLMService(client=bad_client, cache=cache)
         result = await service.analyze(ctx, session)
@@ -632,6 +641,7 @@ class TestLLMService:
         session = _mock_session()
         failing_client = MagicMock()
         failing_client.complete = AsyncMock(side_effect=TimeoutError("30s exceeded"))
+        failing_client.complete_with_usage = AsyncMock(side_effect=TimeoutError("30s exceeded"))
 
         service = LLMService(client=failing_client, cache=cache)
         await service.analyze(ctx, session)
@@ -675,6 +685,7 @@ class TestLLMService:
         session = _mock_session()
         failing_client = MagicMock()
         failing_client.complete = AsyncMock(side_effect=Exception("down"))
+        failing_client.complete_with_usage = AsyncMock(side_effect=Exception("down"))
 
         service = LLMService(client=failing_client, cache=cache)
         result = await service.analyze(ctx, session)

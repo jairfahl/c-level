@@ -1,0 +1,117 @@
+{
+  "case_id": "52717b6a-e543-4f12-9eba-83f1df2fc216",
+  "simulation_label": "Aprovação de Expansão Industrial — Nova Unidade Nordeste",
+  "executed_at": "2026-03-01T21:16:32.441937+00:00",
+  "draft": {
+    "title": "Aprovação de CAPEX: Nova Linha de Produção Recife R$ 18M",
+    "description": "Avaliação e aprovação de investimento de R$ 18 milhões para implantação de nova linha de produção de proteína animal processada em Recife (PE), com incentivo fiscal de ICMS de 40% e financiamento parcial via BNDES-Finem, em co-investimento com fundo de private equity.",
+    "financial_domain": "funding",
+    "decision_type": "investment_evaluation",
+    "financial_exposure": 18000000.0,
+    "time_horizon": "long",
+    "external_agents_present": true,
+    "state": "DRAFT",
+    "created_at": "2026-03-01T21:16:32.443554+00:00"
+  },
+  "classified": {
+    "state": "CLASSIFIED",
+    "impact_score": 5,
+    "framework_selected": "game_theory",
+    "scenario_required": true,
+    "game_theory_active": true,
+    "classified_at": "2026-03-01T21:16:33.443555+00:00"
+  },
+  "structured": {
+    "state": "STRUCTURED",
+    "assumptions": [
+      "O crescimento do mercado nordestino de proteína processada se mantém entre 10%-15% a.a. nos primeiros 5 anos de operação da planta",
+      "O incentivo ICMS de 40% do governo de Pernambuco permanece vigente por todo o período projetado sem revisão legislativa",
+      "O BNDES-Finem mantém as condições de TJLP+2% sem aditivo de spread caso o EBITDA da SPE fique abaixo da meta no Ano 1",
+      "O fundo de PE coinvestidor não exercerá opção de put antes do Ano 3, garantindo estabilidade na estrutura de capital da SPE",
+      "A mão de obra qualificada para operação da linha estará disponível na região a custo 15% inferior ao da unidade principal em SP"
+    ],
+    "assumptions_count": 5,
+    "risks": [
+      "Deterioração do ambiente fiscal de Pernambuco pode resultar em revisão ou extinção do incentivo ICMS antes do prazo previsto",
+      "Atraso na obra civil ou no fornecimento de equipamentos pode estender o prazo de conclusão em 6-12 meses, impactando o VPL",
+      "O fundo de PE pode exercer opções de drag-along desfavoráveis em cenário de saída antecipada, diluindo retornos da empresa",
+      "Concorrente de grande porte pode anunciar expansão na região, comprimindo margens antes que a planta atinja capacidade plena",
+      "Alta de TJLP pode encarecer o serviço da dívida BNDES em cenário de pressão inflacionária, reduzindo o VPL em até R$ 1,4M"
+    ],
+    "risks_count": 5,
+    "structured_at": "2026-03-01T21:16:34.443556+00:00"
+  },
+  "analyzed": {
+    "state": "RECOMMENDED",
+    "recommendation": "Recomendação estruturada — Framework de Teoria dos Jogos aplicado à Aprovação de CAPEX R$ 18M — Nova Linha Recife.\n\nEste investimento envolve quatro agentes estratégicos com incentivos parcialmente alinhados e parcialmente conflitantes: a empresa, o BNDES-Finem, o fundo de PE regional e o Governo de Pernambuco. A estrutura de co-investimento cria um jogo cooperativo com potencial de deserção em momentos específicos do horizonte do projeto.\n\n**Estratégia recomendada:** Aprovação do investimento com a estrutura BNDES 60% + PE 20% + recursos próprios 20%, com as seguintes salvaguardas contratuais: (1) definir floor de ROIC de 18% como gatilho para exercício de amortização acelerada BNDES (evita pre-payment surpresa); (2) negociar cláusula de drag-along com lock-up mínimo de 36 meses para o fundo PE (evita saída prematura que force avaliação desfavorável da SPE); (3) vincular o incentivo ICMS ao volume de empregos diretos na planta — isso cria um compromisso público que dificulta a revisão legislativa unilateral pelo governo.\n\n**Análise de viabilidade:** TIR de 21,4% pós-tax com incentivo vs. WACC de 15,3% — spread positivo de 6,1pp é robusto a sensibilidades de até ±3% na TIR. VPL positivo de R$ 6,2M a 15,3% de WACC com incentivo ICMS; sem o incentivo, VPL cai para R$ 1,8M — portanto, a proteção contratual do incentivo é condição necessária para a viabilidade da aprovação. Payback descontado: 4,5 anos com incentivo vs. 7 anos sem.",
+    "financial_metrics_impacted": [
+      "TIR do Projeto (% pós-tax)",
+      "VPL a WACC de 15,3% (R$)",
+      "ROIC da SPE — Ano 3 (%)",
+      "Payback Descontado (anos)",
+      "Dívida BNDES / EBITDA SPE",
+      "Custo Médio Ponderado de Capital da SPE (%)"
+    ],
+    "scenario_summary": "**Cenário Pessimista** (incentivo ICMS suspenso no Ano 5; crescimento de mercado cai para 6% a.a.): TIR cai de 21,4% para 13,1% pós-tax — abaixo do WACC (15,3%). VPL torna-se negativo em R$ 2,1M. Ação recomendada: acionar cláusula de revisão do cronograma de BNDES + buscar renegociação do incentivo ou crédito fiscal alternativo. Projeto ainda operacionalmente viável, mas destruição de valor marginal.\n\n**Cenário Base** (incentivo mantido 15 anos; crescimento 10–14% a.a.): TIR 21,4%. VPL R$ 6,2M. ROIC Ano 3: 18%. Linha operacional em 18 meses. Este é o cenário de referência da aprovação.\n\n**Cenário Otimista** (crescimento de mercado de 18% a.a.; fundo PE mantém participação por 5 anos): TIR sobe para 27,8%. VPL de R$ 11,4M. ROIC de 24% no Ano 3. BNDES pode ser amortizado antecipadamente no Ano 4 liberando caixa para expansão de capacidade adicional na SPE.",
+    "implicit_assumptions_found": [
+      "A SPE não terá receitas nos primeiros 10 meses de construção — o BNDES-Finem financia por desembolso por avanço físico de obra, e o cronograma de desembolso precisa ser validado contra o cronograma do EPC contratado.",
+      "O fundo de PE regional possui mandato de investimento compatível com o prazo de maturação de 3–5 anos — fundos de PE early-stage com mandato de 3 anos podem ter conflito de horizon com o perfil do projeto.",
+      "A planta de Recife não exigirá aprovação de licença ambiental estadual adicional além do alvará municipal — processos de licenciamento ambiental estadual podem adicionar 6–18 meses ao cronograma."
+    ],
+    "game_theory_model": {
+      "players": [
+        "Empresa (investidor majoritário 80%)",
+        "BNDES-Finem (financiador de longo prazo 60%)",
+        "Fundo de PE Regional (coinvestidor equity 20% da SPE)",
+        "Governo de Pernambuco (concedente do incentivo ICMS)"
+      ],
+      "strategies": {
+        "Empresa (investidor majoritário 80%)": [
+          "Aprovar com estrutura proposta (BNDES 60% + PE 20% + próprios 20%)",
+          "Aprovar com amortização parcial de R$ 8M de caixa (reduz BNDES para 40%)",
+          "Postergar para próximo orçamento (Ano+1)"
+        ],
+        "BNDES-Finem (financiador de longo prazo 60%)": [
+          "Manter condições TJLP+2%, 120 meses",
+          "Exigir garantia adicional (aval da holding) para TJLP+2%",
+          "Reduzir prazo para 84 meses com spread menor (TJLP+1,5%)"
+        ],
+        "Fundo de PE Regional (coinvestidor equity 20% da SPE)": [
+          "Investir R$ 3,6M com lock-up de 36 meses e tag-along",
+          "Investir com cláusula de put no Ano 2 ao VPL projetado",
+          "Não investir — aguardar breakeven operacional para entrar"
+        ],
+        "Governo de Pernambuco (concedente do incentivo ICMS)": [
+          "Manter incentivo ICMS 40% por 15 anos conforme decreto",
+          "Revisar incentivo para 30% no Ano 6 por pressão fiscal estadual",
+          "Condicionar renovação ao cumprimento de metas de empregos diretos"
+        ]
+      },
+      "payoffs": {
+        "Empresa aprova × BNDES mantém × PE investe × Governo mantém incentivo": "Empresa: TIR 21,4%, VPL R$ 6,2M, ROIC Ano 3 de 18%. BNDES: carteira de infraestrutura agroindustrial NE com risco baixo. PE: múltiplo 2,0–2,5x em 4 anos. Governo: 180 empregos diretos + ICMS adicional sobre produção.",
+        "Empresa aprova × BNDES exige aval holding × PE não investe": "Empresa: alavancagem aumenta, WACC sobe para 17,2%. VPL cai para R$ 2,8M. Projeto marginalmente viável. Necessidade de revisar estrutura de capital da SPE.",
+        "Empresa posterga para Ano+1": "Empresa: perde janela do incentivo ICMS de 40% (pode ser revisado). Concorrente pode anunciar expansão regional capturando mercado-alvo. Custo de oportunidade estimado em R$ 3,5M em VPL perdido."
+      },
+      "equilibrium": "Equilíbrio de Nash cooperativo: Empresa aprova com estrutura proposta → BNDES mantém TJLP+2% com aval de recebíveis da SPE (não da holding) → PE investe com lock-up 36 meses + tag-along → Governo mantém incentivo com cláusula de metas de emprego como âncora contratual. Este equilíbrio maximiza o payoff agregado dos quatro jogadores e é auto-sustentável desde que as metas de produção e emprego sejam cumpridas nos dois primeiros anos.",
+      "strategic_risk": "O principal risco estratégico é a deserção unilateral do Governo de Pernambuco (revisão do incentivo ICMS) motivada por pressão fiscal estadual — evento exógeno e de baixa probabilidade (histórico de 15 anos de incentivos industriais no NE), mas de alto impacto (VPL torna-se negativo). A salvaguarda é vincular o incentivo a metas de emprego público, tornando a revisão politicamente custosa. Segundo risco: fundo PE exercendo put no Ano 2 com avaliação inferior ao VPL projetado, forçando a empresa a absorver a participação a preço de estresse."
+    },
+    "llm_unavailable": false,
+    "analyzed_at": "2026-03-01T21:16:35.443561+00:00"
+  },
+  "decided": {
+    "state": "DECIDED",
+    "executive_decision": "Aprovamos o investimento de R$ 18M com a estrutura BNDES 60% + PE 20% + recursos próprios 20%. TIR mínima aceitável: 18% pós-tax com incentivo. Prazo máximo de conclusão: 20 meses. A diluição de 8% no capital da SPE ao fundo PE foi aceita como trade-off favorável dada a redução do desembolso próprio e o alinhamento de incentivos.",
+    "divergence_justification": null,
+    "divergence_flag": false,
+    "decided_at": "2026-03-01T21:16:36.443562+00:00"
+  },
+  "prompts": {
+    "system_prompt": "You are a structured financial decision-making mentor for CFOs.\nYour role is to analyze financial decisions using rigorous methodology.\nNever provide opinions without structure. Always identify risks.\nNever skip assumption explicitiation.\nOutput must follow the exact JSON contract defined below.",
+    "user_prompt": "## Contexto da Decisão\n- **Tipo de decisão:** investment_evaluation\n- **Domínio financeiro:** funding\n- **Exposição financeira (BRL):** 18,000,000.00\n- **Horizonte temporal:** long\n- **Framework analítico selecionado:** game_theory\n- **Análise de cenários obrigatória:** Sim\n- **Teoria dos jogos ativa:** Sim\n\n## Premissas Declaradas\n1. O crescimento do mercado nordestino de proteína processada se mantém entre 10%-15% a.a. nos primeiros 5 anos de operação da planta\n2. O incentivo ICMS de 40% do governo de Pernambuco permanece vigente por todo o período projetado sem revisão legislativa\n3. O BNDES-Finem mantém as condições de TJLP+2% sem aditivo de spread caso o EBITDA da SPE fique abaixo da meta no Ano 1\n4. O fundo de PE coinvestidor não exercerá opção de put antes do Ano 3, garantindo estabilidade na estrutura de capital da SPE\n5. A mão de obra qualificada para operação da linha estará disponível na região a custo 15% inferior ao da unidade principal em SP\n\n## Riscos Identificados\n1. Deterioração do ambiente fiscal de Pernambuco pode resultar em revisão ou extinção do incentivo ICMS antes do prazo previsto\n2. Atraso na obra civil ou no fornecimento de equipamentos pode estender o prazo de conclusão em 6-12 meses, impactando o VPL\n3. O fundo de PE pode exercer opções de drag-along desfavoráveis em cenário de saída antecipada, diluindo retornos da empresa\n4. Concorrente de grande porte pode anunciar expansão na região, comprimindo margens antes que a planta atinja capacidade plena\n5. Alta de TJLP pode encarecer o serviço da dívida BNDES em cenário de pressão inflacionária, reduzindo o VPL em até R$ 1,4M\n\n## Instruções de Análise\n1. Identifique todos os agentes estratégicos (players) e suas motivações.\n2. Mapeie as estratégias disponíveis para cada agente.\n3. Calcule os payoffs estimados para cada combinação de estratégias.\n4. Identifique o equilíbrio de Nash ou estratégia dominante.\n5. Avalie o risco estratégico de cada posição.\n6. IMPORTANTE: scenario_required = true. Inclua 'scenario_summary' com análise dos cenários pessimista, base e otimista com impactos financeiros quantificados.\n7. IMPORTANTE: game_theory_active = true. Preencha obrigatoriamente o campo 'game_theory_model' com players, strategies, payoffs, equilibrium e strategic_risk.\n8. Identifique premissas implícitas não declaradas pelo CFO que impactam materialmente a decisão e liste-as em 'implicit_assumptions_found'.\n\n## Contrato de Saída (JSON)\n{\n  \"recommendation\": \"<string — recomendação estruturada e fundamentada>\",\n  \"financial_metrics_impacted\": [\"<métrica 1>\", \"<métrica 2>\"],\n  \"scenario_summary\": \"<string quando scenario_required=true, caso contrário null>\",\n  \"implicit_assumptions_found\": [\"<premissa implícita detectada>\"],\n  \"game_theory_model\": {\n    \"players\": [\"<agente 1>\", \"<agente 2>\"],\n    \"strategies\": {\"<agente>\": [\"<estratégia 1>\", \"<estratégia 2>\"]},\n    \"payoffs\": {\"<combinação>\": \"<valor ou descrição>\"},\n    \"equilibrium\": \"<equilíbrio de Nash ou null>\",\n    \"strategic_risk\": \"<descrição do risco estratégico>\"\n  }\n}\n\nReturn ONLY valid JSON. No markdown fences, no explanatory text."
+  },
+  "historical_reference": {
+    "original_rationale": "Apresentação do Board em novembro: o mercado nordestino de proteína animal processada cresceu 14% no último triênio com penetração de apenas 3,2% da empresa. O incentivo ICMS de 40% concedido pelo governo de Pernambuco para agroindústrias vale por 15 anos. BNDES-Finem oferece financiamento de 60% (R$ 10,8M) a TJLP+2% (estimada em 8,2% a.a.), contra WACC da empresa de 15,3%. Um fundo de PE regional sinalizou interesse em coinvestir 20% (R$ 3,6M) via equity, diluindo 8% do capital da nova SPE. A análise de payback indica 7 anos sem incentivo e 4,5 anos com incentivo.",
+    "decision_taken": "Investimento aprovado com estrutura: BNDES 60% (R$ 10,8M, TJLP+2%, 120 meses), PE coinvestidor 20% (R$ 3,6M, equity SPE), recursos próprios 20% (R$ 3,6M). TIR projetada pós-tax com incentivo: 21,4%. VPL a 15,3% de WACC: R$ 6,2M positivo. Prazo de conclusão: 18 meses. Meta de ROIC no ano 3: 18%.",
+    "actual_outcome": "Linha operacional 8 meses antes do prazo (10 meses após aprovação). ROIC de 18,2% atingido já no Ano 2 (antecipado). Fundo PE exerceu opção de saída via tag-along no Ano 3 com múltiplo 2,1x. BNDES manteve cronograma de amortização sem renegociação."
+  }
+}

@@ -84,6 +84,7 @@ class Decision(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     decision_case_id = Column(UUID(as_uuid=True), ForeignKey("financial_decision_cases.id", ondelete="CASCADE"), nullable=False)
     recommendation = Column(Text, nullable=False)
+    initial_hypothesis = Column(Text, nullable=True)
     executive_decision = Column(Text, nullable=True)
     divergence_flag = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)

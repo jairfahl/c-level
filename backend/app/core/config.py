@@ -31,6 +31,12 @@ class Settings(BaseSettings):
     # LLM Cache
     LLM_CACHE_TTL: int = 86400
 
+    # API Credit Budget (USD)
+    API_CREDIT_BUDGET: float = 5.0
+    API_CREDIT_WARNING_THRESHOLD: float = 0.50
+    ANTHROPIC_INPUT_PRICE_PER_1M: float = 3.0
+    ANTHROPIC_OUTPUT_PRICE_PER_1M: float = 15.0
+
 
 @lru_cache
 def get_settings() -> Settings:

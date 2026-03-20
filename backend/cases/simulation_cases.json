@@ -1,0 +1,265 @@
+[
+  {
+    "_case_id": 1,
+    "_label": "Realocação Orçamentária Mid-Year",
+
+    "title": "Realocação Orçamentária Q2: COGS vs. Marketing",
+    "description": "Revisão orçamentária de meio de exercício para remanejar verba de ativações de marketing para cobertura de overrun de COGS causado por estiagem e alta do farelo de soja.",
+    "financial_domain": "planning",
+    "decision_type": "budget_adjustment",
+    "financial_exposure": 380000.00,
+    "time_horizon": "short",
+    "external_agents_present": false,
+
+    "original_rationale": "Email da Diretoria de Operações datado de maio, reportando overrun de R$ 380k no COGS de proteína animal devido à estiagem no Centro-Oeste que elevou o farelo de soja em 22% vs. orçamento original. O CFO convocou reunião de revisão orçamentária mid-year para realocar verba. Alternativas avaliadas: corte de headcount (descartado — risco operacional), postergação de capex menor (aprovado parcialmente), e corte de ativações de trade marketing no varejo regional.",
+    "decision_taken": "Realocação de R$ 380k do budget de trade marketing regional para cobertura integral do overrun de COGS. Campanhas de Q3 no Nordeste postergadas para Q1 do ano seguinte. Revisão de preços de tabela em +2,5% aprovada concomitantemente para recuperação parcial de margem.",
+    "actual_outcome": "EBITDA margin encerrou o semestre em 13,4%, versus 13,1% projetado pós-realocação. A postergação das ativações gerou queda de 1,8pp de market share no canal regional em Q3, recuperado em Q1 seguinte conforme planejado.",
+
+    "_simulation": {
+      "expected_impact_score": 2,
+      "expected_framework": "pdca",
+      "expected_scenario_required": false,
+      "classify_payload": {
+        "impact_score": 2
+      },
+      "structure_payload": {
+        "assumptions": [
+          "Selic permanece em 10,75% ao longo do semestre, sem impacto adicional sobre o custo de capital de giro",
+          "O preço do farelo de soja não sofre nova elevação acima de 5% no restante do exercício",
+          "A postergação das ativações de trade marketing não gera perda permanente de shelf space nos clientes regionais",
+          "A revisão de preços de +2,5% é absorvida pelo canal sem perda relevante de volume"
+        ],
+        "risks": [
+          "Nova alta de commodities pode ampliar o overrun de COGS além dos R$ 380k previstos, exigindo cortes adicionais",
+          "Concorrentes aproveitam ausência das ativações para ganho de market share no canal regional do Nordeste",
+          "Resistência dos clientes varejistas ao reajuste de preços pode gerar devoluções e ruptura de contratos",
+          "Reversão do remanejamento pode ser necessária se o guidance de EBITDA for revisado pelo board em Q3"
+        ]
+      },
+      "decide_payload": {
+        "executive_decision": "Aprovamos a realocação integral de R$ 380k de trade marketing para COGS, com revisão de preços de tabela em 2,5% e postergação das campanhas regionais para Q1 do exercício seguinte. Monitoramento mensal via DRE gerencial.",
+        "divergence_justification": null,
+        "monitoring_criteria": null
+      },
+      "review_payload": {
+        "outcome_summary": "EBITDA margin encerrou o semestre em 13,4%, superando a projeção pós-realocação de 13,1%. Queda de 1,8pp de market share no canal regional recuperada em Q1. Overrun de COGS coberto integralmente. Reajuste de preços absorvido sem ruptura relevante de contratos.",
+        "forecast_accuracy_score": 8,
+        "risk_realization_rate": 20.0,
+        "capital_allocation_efficiency_score": 85.0,
+        "divergence_outcome_flag": false
+      }
+    }
+  },
+
+  {
+    "_case_id": 2,
+    "_label": "Renegociação de Dívida Bancária — Sindicato CCB",
+
+    "title": "Renegociação de CCBs: Sindicato de Bancos R$ 52M",
+    "description": "Renegociação de R$ 52 milhões em Cédulas de Crédito Bancário junto a sindicato formado por Itaú BBA, Bradesco BBI e BTG Pactual, com vencimento em abril do ano seguinte e custo médio atual de 14,9% a.a. (CDI+1,4%).",
+    "financial_domain": "funding",
+    "decision_type": "debt_structuring",
+    "financial_exposure": 52000000.00,
+    "time_horizon": "long",
+    "external_agents_present": true,
+
+    "original_rationale": "Apresentação ao Comitê de Finanças de setembro: três CCBs totalizando R$ 52M com vencimento concentrado em abril, contratadas em ambiente de Selic a 13,75%. Com a Selic em trajetória de queda para 10,5%, o CFO identificou oportunidade de refinanciamento a custo menor. BTG sinalizou interesse em estruturar debenture simples como alternativa. Itaú e Bradesco apresentaram propostas de roll-over com spread reduzido. O risco de não negociar é manutenção de custo elevado por mais 12 meses, pressionando o DSCR abaixo do covenant de 1,2x.",
+    "decision_taken": "Renegociação em duas tranches: (1) R$ 31,2M via nova CCB com Itaú+Bradesco a CDI+1,1% (vs. CDI+1,4% anterior), prazo de 36 meses; (2) R$ 20,8M via debenture não conversível com BTG, IPCA+5,8%, prazo de 48 meses, com cláusula de amortização acelerada caso EBITDA/Receita supere 15%. Custo médio ponderado pós-renegociação: 12,4% a.a.",
+    "actual_outcome": "Custo médio da dívida reduziu de 14,9% para 12,4% a.a., economia anual de R$ 1,3M em despesas financeiras. DSCR subiu de 1,18x (pré-negociação) para 1,41x. BTG exerceu a cláusula de amortização acelerada no ano 2 após EBITDA margin superar 15%.",
+
+    "_simulation": {
+      "expected_impact_score": 5,
+      "expected_framework": "game_theory",
+      "expected_scenario_required": true,
+      "classify_payload": {
+        "impact_score": 5
+      },
+      "structure_payload": {
+        "assumptions": [
+          "A Selic encerrará o ciclo de afrouxamento em 10,0%-10,5% a.a., mantendo o CDI como referência estável para precificação",
+          "Os três bancos credores têm incentivo racional para renegociar dado o risco de concentração de vencimentos na própria carteira",
+          "O EBITDA do exercício corrente atingirá R$ 64M (margem de 13,3%), garantindo covenants confortáveis durante a negociação",
+          "O rating de crédito Série A da empresa se mantém em 'AA-' (Fitch) sem watchlist negativo durante o processo",
+          "A amortização da dívida atual com recursos próprios (R$ 8M disponíveis) reduz o montante a renegociar para R$ 44M se necessário"
+        ],
+        "risks": [
+          "BTG pode usar sua posição como credor junior para pressionar por condições mais restritivas nos covenants financeiros",
+          "Reversão do ciclo de afrouxamento do Banco Central pode elevar o CDI antes do fechamento da operação, encarecendo a nova CCB",
+          "Downgrade de rating desencadeado por deterioração do setor alimentício pode encarecer o spread das debentures em 60-80bps",
+          "Desalinhamento entre as instituições do sindicato pode paralisar a negociação e forçar pagamento do vencimento original",
+          "Cláusula cross-default nas CCBs antigas pode ser acionada se a empresa restructurar qualquer outro passivo antes do fechamento"
+        ]
+      },
+      "decide_payload": {
+        "executive_decision": "Aprovamos a renegociação em duas tranches: CCB CDI+1,1% com Itaú e Bradesco (R$ 31,2M, 36 meses) e debenture IPCA+5,8% com BTG (R$ 20,8M, 48 meses). A cláusula de amortização acelerada foi aceita como moeda de troca pela redução do spread. Meta de custo médio: 12,4% a.a.",
+        "divergence_justification": null,
+        "monitoring_criteria": null
+      },
+      "review_payload": {
+        "outcome_summary": "Custo médio reduziu para 12,4% a.a., economia anual de R$ 1,3M. DSCR evoluiu de 1,18x para 1,41x. BTG exerceu amortização acelerada no ano 2 após EBITDA margin superar 15%, reduzindo exposição residual antecipadamente. Operação considerada caso de sucesso no mercado de crédito mid-market.",
+        "forecast_accuracy_score": 9,
+        "risk_realization_rate": 10.0,
+        "capital_allocation_efficiency_score": 92.0,
+        "divergence_outcome_flag": false
+      }
+    }
+  },
+
+  {
+    "_case_id": 3,
+    "_label": "Gestão de Crise de Liquidez Q4",
+
+    "title": "Gestão de Liquidez: Gap de Caixa R$ 3,8M — Janela 90 dias",
+    "description": "Decisão estruturada para cobrir gap de caixa de R$ 3,8 milhões na janela de 90 dias de Q4, originado por atraso de 18 dias no prazo médio de recebimento de três redes varejistas âncora, combinado com vencimento de 13ª CCR não prevista no orçamento.",
+    "financial_domain": "treasury",
+    "decision_type": "liquidity_management",
+    "financial_exposure": 3800000.00,
+    "time_horizon": "short",
+    "external_agents_present": false,
+
+    "original_rationale": "Flash report do Tesoureiro de outubro: PMR subiu de 42 para 60 dias nas três maiores redes (Carrefour, Grupo Pão de Açúcar, Atacadão), gerando R$ 3,1M de déficit de recebíveis vs. planejado. Somado ao vencimento de CCR de R$ 700k não orçada, o gap projetado é de R$ 3,8M. Opções avaliadas: (a) saque da linha de crédito rotativo (disponível R$ 5M, custo CDI+2,2%), (b) desconto de duplicatas/FIDC a 1,1% a.m., (c) redução acelerada do estoque de matérias-primas via vendas à vista com desconto, (d) solicitação de prazo adicional junto a fornecedores-chave.",
+    "decision_taken": "Abordagem híbrida: (1) Saque de R$ 2,5M do crédito rotativo (custo estimado de R$ 22k/mês); (2) Desconto de R$ 1,0M em duplicatas de curto prazo via FIDC próprio (custo 1,0% a.m.); (3) Negociação de 30 dias adicionais com 2 fornecedores de embalagem (R$ 300k liberado sem custo). Total: gap coberto com custo médio de 1,5% a.m. sobre o período.",
+    "actual_outcome": "Gap coberto em 78 dias (vs. 90 projetados). Crédito rotativo liquidado integralmente. Custo efetivo: R$ 52k (abaixo dos R$ 68k projetados). Sem violação de covenants. PMR normalizou para 46 dias em Q1 após renegociação de SLAs com as redes varejistas.",
+
+    "_simulation": {
+      "expected_impact_score": 4,
+      "expected_framework": "risk_matrix",
+      "expected_scenario_required": true,
+      "classify_payload": {
+        "impact_score": 4
+      },
+      "structure_payload": {
+        "assumptions": [
+          "As três redes varejistas honrarão os pagamentos em atraso dentro de 60 dias sem necessidade de execução judicial de duplicatas",
+          "A linha de crédito rotativo de R$ 5M permanecerá disponível durante todo o período sem renegociação de covenant",
+          "O FIDC de recebíveis manterá a taxa de desconto em 1,0%-1,1% a.m. sem deterioração do portfólio durante o período",
+          "Os dois fornecedores de embalagem aceitarão o prazo adicional de 30 dias sem cobrança de juros ou revisão de contrato de fornecimento"
+        ],
+        "risks": [
+          "Deterioração adicional do PMR além dos 60 dias pode ampliar o gap de caixa para além do limite da linha de crédito rotativo",
+          "Alta do CDI durante o período pode encarecer o custo do crédito rotativo acima do custo de oportunidade projetado",
+          "Recusa dos fornecedores de embalagem em conceder prazo adicional força busca de alternativas mais caras de curto prazo",
+          "Concentração de vencimentos em Q4 pode sinalizar fragilidade de liquidez ao mercado se houver vazamento da informação"
+        ]
+      },
+      "decide_payload": {
+        "executive_decision": "Aprovamos abordagem híbrida: saque de R$ 2,5M do crédito rotativo, desconto de R$ 1,0M em duplicatas via FIDC e R$ 300k via prazo adicional com fornecedores. Custo máximo admitido: R$ 68k no período. Monitoramento semanal do PMR e revisão do SLA com redes varejistas em paralelo.",
+        "divergence_justification": null,
+        "monitoring_criteria": null
+      },
+      "review_payload": {
+        "outcome_summary": "Gap coberto em 78 dias com custo efetivo de R$ 52k (vs. R$ 68k projetados). Crédito rotativo quitado integralmente. Sem violação de covenants. PMR normalizou para 46 dias em Q1 após renegociação de SLAs. Abordagem híbrida validada como modelo para futuros episódios de estresse de liquidez.",
+        "forecast_accuracy_score": 9,
+        "risk_realization_rate": 15.0,
+        "capital_allocation_efficiency_score": 88.0,
+        "divergence_outcome_flag": false
+      }
+    }
+  },
+
+  {
+    "_case_id": 4,
+    "_label": "Aprovação de Expansão Industrial — Nova Unidade Nordeste",
+
+    "title": "Aprovação de CAPEX: Nova Linha de Produção Recife R$ 18M",
+    "description": "Avaliação e aprovação de investimento de R$ 18 milhões para implantação de nova linha de produção de proteína animal processada em Recife (PE), com incentivo fiscal de ICMS de 40% e financiamento parcial via BNDES-Finem, em co-investimento com fundo de private equity.",
+    "financial_domain": "funding",
+    "decision_type": "investment_evaluation",
+    "financial_exposure": 18000000.00,
+    "time_horizon": "long",
+    "external_agents_present": true,
+
+    "original_rationale": "Apresentação do Board em novembro: o mercado nordestino de proteína animal processada cresceu 14% no último triênio com penetração de apenas 3,2% da empresa. O incentivo ICMS de 40% concedido pelo governo de Pernambuco para agroindústrias vale por 15 anos. BNDES-Finem oferece financiamento de 60% (R$ 10,8M) a TJLP+2% (estimada em 8,2% a.a.), contra WACC da empresa de 15,3%. Um fundo de PE regional sinalizou interesse em coinvestir 20% (R$ 3,6M) via equity, diluindo 8% do capital da nova SPE. A análise de payback indica 7 anos sem incentivo e 4,5 anos com incentivo.",
+    "decision_taken": "Investimento aprovado com estrutura: BNDES 60% (R$ 10,8M, TJLP+2%, 120 meses), PE coinvestidor 20% (R$ 3,6M, equity SPE), recursos próprios 20% (R$ 3,6M). TIR projetada pós-tax com incentivo: 21,4%. VPL a 15,3% de WACC: R$ 6,2M positivo. Prazo de conclusão: 18 meses. Meta de ROIC no ano 3: 18%.",
+    "actual_outcome": "Linha operacional 8 meses antes do prazo (10 meses após aprovação). ROIC de 18,2% atingido já no Ano 2 (antecipado). Fundo PE exerceu opção de saída via tag-along no Ano 3 com múltiplo 2,1x. BNDES manteve cronograma de amortização sem renegociação.",
+
+    "_simulation": {
+      "expected_impact_score": 5,
+      "expected_framework": "game_theory",
+      "expected_scenario_required": true,
+      "classify_payload": {
+        "impact_score": 5
+      },
+      "structure_payload": {
+        "assumptions": [
+          "O crescimento do mercado nordestino de proteína processada se mantém entre 10%-15% a.a. nos primeiros 5 anos de operação da planta",
+          "O incentivo ICMS de 40% do governo de Pernambuco permanece vigente por todo o período projetado sem revisão legislativa",
+          "O BNDES-Finem mantém as condições de TJLP+2% sem aditivo de spread caso o EBITDA da SPE fique abaixo da meta no Ano 1",
+          "O fundo de PE coinvestidor não exercerá opção de put antes do Ano 3, garantindo estabilidade na estrutura de capital da SPE",
+          "A mão de obra qualificada para operação da linha estará disponível na região a custo 15% inferior ao da unidade principal em SP"
+        ],
+        "risks": [
+          "Deterioração do ambiente fiscal de Pernambuco pode resultar em revisão ou extinção do incentivo ICMS antes do prazo previsto",
+          "Atraso na obra civil ou no fornecimento de equipamentos pode estender o prazo de conclusão em 6-12 meses, impactando o VPL",
+          "O fundo de PE pode exercer opções de drag-along desfavoráveis em cenário de saída antecipada, diluindo retornos da empresa",
+          "Concorrente de grande porte pode anunciar expansão na região, comprimindo margens antes que a planta atinja capacidade plena",
+          "Alta de TJLP pode encarecer o serviço da dívida BNDES em cenário de pressão inflacionária, reduzindo o VPL em até R$ 1,4M"
+        ]
+      },
+      "decide_payload": {
+        "executive_decision": "Aprovamos o investimento de R$ 18M com a estrutura BNDES 60% + PE 20% + recursos próprios 20%. TIR mínima aceitável: 18% pós-tax com incentivo. Prazo máximo de conclusão: 20 meses. A diluição de 8% no capital da SPE ao fundo PE foi aceita como trade-off favorável dada a redução do desembolso próprio e o alinhamento de incentivos.",
+        "divergence_justification": null,
+        "monitoring_criteria": null
+      },
+      "review_payload": {
+        "outcome_summary": "Linha operacional em 10 meses (8 meses antes do prazo). ROIC de 18,2% alcançado já no Ano 2, antecipando a meta do Ano 3. Fundo PE exerceu saída via tag-along no Ano 3 com múltiplo 2,1x. BNDES manteve cronograma sem renegociação. Operação considerada o melhor case de expansão greenfield da empresa na última década.",
+        "forecast_accuracy_score": 10,
+        "risk_realization_rate": 12.0,
+        "capital_allocation_efficiency_score": 96.0,
+        "divergence_outcome_flag": false
+      }
+    }
+  },
+
+  {
+    "_case_id": 5,
+    "_label": "Revisão de Forecast Q3 sob Pressão Cambial",
+
+    "title": "Revisão de Forecast Q3: Impacto Cambial e Inflação de Insumos",
+    "description": "Revisão estruturada do forecast de EBITDA do Q3 diante de depreciação cambial de 15% no BRL/USD e alta de 18% no custo de embalagens importadas, com impacto estimado de R$ 1,2 milhões na margem operacional do trimestre.",
+    "financial_domain": "reporting",
+    "decision_type": "forecast_revision",
+    "financial_exposure": 1200000.00,
+    "time_horizon": "short",
+    "external_agents_present": false,
+
+    "original_rationale": "Relatório do Planejamento Financeiro de julho: O BRL depreciou 15% vs. USD no Q2 (de R$4,90 para R$5,64), impactando diretamente embalagens importadas (participação de 23% no COGS). Modelo de sensibilidade indicou erosão de R$ 1,2M na margem EBITDA do Q3, reduzindo a margem de 14,2% para 12,8%. O CFO solicitou revisão formal do forecast com três cenários: base (câmbio estabiliza em R$5,64), otimista (apreciação para R$5,30) e pessimista (depreciação para R$6,00). A tese de hedging parcial foi levantada como mitigante.",
+    "decision_taken": "Revisão do forecast de EBITDA do Q3 de R$ 68,2M (margem 14,2%) para R$ 61,4M (margem 12,8%), refletindo o cenário base. Implementação de hedge cambial de 50% da exposição de embalagens importadas via NDF BRL/USD para Q4, a R$5,70. Revisão de preços de tabela em +1,8% aprovada para Q4 como mitigante adicional.",
+    "actual_outcome": "EBITDA do Q3 encerrou em R$ 62,9M (margem 13,1%), acima da revisão de 12,8% graças ao hedge parcial que gerou ganho de R$ 920k. NDF de Q4 resultou em proteção adicional de R$ 1,1M. Revisão de preços de +1,8% absorvida pelo canal com impacto de volume abaixo de 2%.",
+
+    "_simulation": {
+      "expected_impact_score": 3,
+      "expected_framework": "scenario_analysis",
+      "expected_scenario_required": false,
+      "classify_payload": {
+        "impact_score": 3
+      },
+      "structure_payload": {
+        "assumptions": [
+          "A taxa de câmbio BRL/USD se estabiliza no intervalo de R$5,50-R$5,75 no Q3, sem novo choque desordenado de depreciação",
+          "O hedge via NDF a R$5,70 pode ser contratado a custo de carregamento inferior a 0,5% a.m. com as contrapartes bancárias disponíveis",
+          "A revisão de preços de tabela em +1,8% não gera perda de volume superior a 2% nos canais atacado e varejo durante o trimestre",
+          "O custo de embalagens importadas não sofre alta adicional além do impacto já calculado de 18% no período de referência"
+        ],
+        "risks": [
+          "Nova depreciação cambial acima de R$6,00 pode ampliar a erosão de margem para além dos R$ 1,2M projetados, alcançando R$ 1,9M no pior cenário",
+          "Contração de crédito bancário pode inviabilizar a contratação do NDF nas condições de custo assumidas no modelo de sensibilidade",
+          "Repasse de preços acima de 1,8% pode ser necessário se a inflação de insumos acelerar, gerando risco de volume maior do que o modelado",
+          "Deterioração de margem simultânea em outros produtos pode inviabilizar o guidance anual, exigindo revisão do outlook ao mercado"
+        ]
+      },
+      "decide_payload": {
+        "executive_decision": "Aprovamos a revisão do forecast de Q3 para margem EBITDA de 12,8%, com contratação de NDF cobrindo 50% da exposição cambial de embalagens para Q4 e reajuste de preços de +1,8% a partir de outubro. Revisão de guidance anual será comunicada ao mercado se a margem consolidada ficar abaixo de 13% no acumulado.",
+        "divergence_justification": null,
+        "monitoring_criteria": null
+      },
+      "review_payload": {
+        "outcome_summary": "EBITDA Q3 encerrou em R$ 62,9M (margem 13,1%), superando a revisão de 12,8%. Hedge NDF gerou ganho de R$ 920k no Q3 e proteção adicional de R$ 1,1M no Q4. Reajuste de +1,8% absorvido com perda de volume inferior a 2%. Guidance anual mantido. Modelo de sensibilidade cambial validado para uso nos próximos exercícios.",
+        "forecast_accuracy_score": 8,
+        "risk_realization_rate": 25.0,
+        "capital_allocation_efficiency_score": 82.0,
+        "divergence_outcome_flag": false
+      }
+    }
+  }
+]

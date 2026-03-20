@@ -45,6 +45,8 @@ def build_cache_key(ctx: PromptContext) -> str:
         "game_theory_active": ctx.game_theory_active,
         "assumptions": sorted(ctx.assumptions),
         "risks": sorted(ctx.risks),
+        "knowledge_snippets": sorted(ctx.knowledge_snippets),
+        "heuristics_context": sorted(ctx.heuristics_context),
     }
     canonical = json.dumps(data, sort_keys=True, ensure_ascii=True)
     digest = hashlib.sha256(canonical.encode()).hexdigest()

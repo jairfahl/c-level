@@ -1,7 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.core.exceptions import MentorCFOException, mentor_exception_handler
 from app.core.config import settings
+from app.api.routers import cases_router, state_machine_router, audit_router, heuristics_router, admin_router, auth_router, knowledge_base_router
 
 app = FastAPI(
     title="CFO Mentor API",
@@ -20,6 +24,29 @@ app.add_middleware(
 )
 
 app.add_exception_handler(MentorCFOException, mentor_exception_handler)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    errors = exc.errors()
+    first_error = errors[0] if errors else {}
+    return JSONResponse(
+        status_code=400,
+        content={
+            "error": "VALIDATION_ERROR",
+            "message": first_error.get("msg", "Validation error"),
+            "details": jsonable_encoder(errors),
+        },
+    )
+
+
+app.include_router(auth_router, prefix="/v1")
+app.include_router(cases_router, prefix="/v1")
+app.include_router(state_machine_router, prefix="/v1")
+app.include_router(audit_router, prefix="/v1")
+app.include_router(heuristics_router, prefix="/v1")
+app.include_router(admin_router, prefix="/v1")
+app.include_router(knowledge_base_router, prefix="/v1")
 
 
 @app.get("/health", tags=["Health"])

@@ -1,0 +1,78 @@
+{
+  "case_id": "41d86740-3ee4-4603-83ce-1f3aa0b7e4e1",
+  "simulation_label": "Realocação Orçamentária Mid-Year",
+  "executed_at": "2026-03-01T21:16:32.441937+00:00",
+  "draft": {
+    "title": "Realocação Orçamentária Q2: COGS vs. Marketing",
+    "description": "Revisão orçamentária de meio de exercício para remanejar verba de ativações de marketing para cobertura de overrun de COGS causado por estiagem e alta do farelo de soja.",
+    "financial_domain": "planning",
+    "decision_type": "budget_adjustment",
+    "financial_exposure": 380000.0,
+    "time_horizon": "short",
+    "external_agents_present": false,
+    "state": "DRAFT",
+    "created_at": "2026-03-01T21:16:32.442805+00:00"
+  },
+  "classified": {
+    "state": "CLASSIFIED",
+    "impact_score": 2,
+    "framework_selected": "pdca",
+    "scenario_required": false,
+    "game_theory_active": false,
+    "classified_at": "2026-03-01T21:16:33.442811+00:00"
+  },
+  "structured": {
+    "state": "STRUCTURED",
+    "assumptions": [
+      "Selic permanece em 10,75% ao longo do semestre, sem impacto adicional sobre o custo de capital de giro",
+      "O preço do farelo de soja não sofre nova elevação acima de 5% no restante do exercício",
+      "A postergação das ativações de trade marketing não gera perda permanente de shelf space nos clientes regionais",
+      "A revisão de preços de +2,5% é absorvida pelo canal sem perda relevante de volume"
+    ],
+    "assumptions_count": 4,
+    "risks": [
+      "Nova alta de commodities pode ampliar o overrun de COGS além dos R$ 380k previstos, exigindo cortes adicionais",
+      "Concorrentes aproveitam ausência das ativações para ganho de market share no canal regional do Nordeste",
+      "Resistência dos clientes varejistas ao reajuste de preços pode gerar devoluções e ruptura de contratos",
+      "Reversão do remanejamento pode ser necessária se o guidance de EBITDA for revisado pelo board em Q3"
+    ],
+    "risks_count": 4,
+    "structured_at": "2026-03-01T21:16:34.442814+00:00"
+  },
+  "analyzed": {
+    "state": "RECOMMENDED",
+    "recommendation": "Recomendação estruturada — Framework PDCA aplicado à Realocação Orçamentária Q2.\n\n**PLAN (Diagnóstico):** O overrun de COGS de R$ 380k é de natureza estrutural-temporária: a alta de 22% no farelo de soja é causada por estiagem no Centro-Oeste e tem correlação histórica de reversão parcial em 6–9 meses. A postergação das ativações de trade marketing regional é o único vetor de financiamento disponível com baixo risco de dano permanente à posição competitiva, desde que executada antes do início das campanhas de Q3 dos concorrentes. A revisão de preços de +2,5% é essencial para preservar margem sem depender de hedge de commodities.\n\n**DO (Ações):** (1) Remanejamento imediato de R$ 380k de trade marketing regional para COGS — sem corte de headcount nem postergação de capex estratégico. (2) Aprovação simultânea da revisão de preços de tabela em +2,5%, com vigência a partir de 1° de agosto. (3) Comunicação proativa ao canal varejista sobre a postergação das campanhas regionais, com data-commit para Q1 do exercício seguinte.\n\n**CHECK (Métricas de controle):** (a) EBITDA margin mensal vs. 13,1% revisado — desvio >0,5pp aciona revisão de emergência; (b) Market share no canal regional Nordeste quinzenal — queda >3pp vs. junho aciona ativação emergencial de PDV mínimo; (c) Preço médio de farelo de soja semanal — alta adicional >5% reabre a discussão de hedge.\n\n**ACT (Ajustes contingentes):** Se o market share regional cair >5pp até outubro, redirecionar R$ 80k do budget de mídia nacional para ativações de PDV emergenciais no canal afetado. Se o farelo recuperar >10% do preço, liberar R$ 120k das ativações postergadas ainda em Q3.",
+    "financial_metrics_impacted": [
+      "EBITDA margin (%)",
+      "OpEx de Marketing (R$)",
+      "COGS / Receita Líquida (%)",
+      "Market Share Canal Regional (%)",
+      "Variância Orçamentária COGS (R$)"
+    ],
+    "scenario_summary": null,
+    "implicit_assumptions_found": [
+      "A elasticidade-preço da demanda no canal regional é suficientemente baixa para absorver reajuste de 2,5% sem ruptura de contratos com redes varejistas do Nordeste.",
+      "Os concorrentes diretos não realizarão ativações compensatórias no canal regional durante Q3, dado que a ausência das campanhas próprias não é pública.",
+      "O canal varejista regional não possui alternativas de fornecimento equivalente que tornem a perda de shelf space permanente em razão da postergação."
+    ],
+    "game_theory_model": null,
+    "llm_unavailable": false,
+    "analyzed_at": "2026-03-01T21:16:35.442817+00:00"
+  },
+  "decided": {
+    "state": "DECIDED",
+    "executive_decision": "Aprovamos a realocação integral de R$ 380k de trade marketing para COGS, com revisão de preços de tabela em 2,5% e postergação das campanhas regionais para Q1 do exercício seguinte. Monitoramento mensal via DRE gerencial.",
+    "divergence_justification": null,
+    "divergence_flag": false,
+    "decided_at": "2026-03-01T21:16:36.442819+00:00"
+  },
+  "prompts": {
+    "system_prompt": "You are a structured financial decision-making mentor for CFOs.\nYour role is to analyze financial decisions using rigorous methodology.\nNever provide opinions without structure. Always identify risks.\nNever skip assumption explicitiation.\nOutput must follow the exact JSON contract defined below.",
+    "user_prompt": "## Contexto da Decisão\n- **Tipo de decisão:** budget_adjustment\n- **Domínio financeiro:** planning\n- **Exposição financeira (BRL):** 380,000.00\n- **Horizonte temporal:** short\n- **Framework analítico selecionado:** pdca\n- **Análise de cenários obrigatória:** Não\n- **Teoria dos jogos ativa:** Não\n\n## Premissas Declaradas\n1. Selic permanece em 10,75% ao longo do semestre, sem impacto adicional sobre o custo de capital de giro\n2. O preço do farelo de soja não sofre nova elevação acima de 5% no restante do exercício\n3. A postergação das ativações de trade marketing não gera perda permanente de shelf space nos clientes regionais\n4. A revisão de preços de +2,5% é absorvida pelo canal sem perda relevante de volume\n\n## Riscos Identificados\n1. Nova alta de commodities pode ampliar o overrun de COGS além dos R$ 380k previstos, exigindo cortes adicionais\n2. Concorrentes aproveitam ausência das ativações para ganho de market share no canal regional do Nordeste\n3. Resistência dos clientes varejistas ao reajuste de preços pode gerar devoluções e ruptura de contratos\n4. Reversão do remanejamento pode ser necessária se o guidance de EBITDA for revisado pelo board em Q3\n\n## Instruções de Análise\n1. Aplique o ciclo PDCA: identifique o problema (Plan), as ações corretivas (Do), métricas de controle (Check) e ajustes necessários (Act).\n2. Foque em variações orçamentárias, causas-raiz e ações de correção mensuráveis.\n3. Identifique premissas implícitas não declaradas pelo CFO que impactam materialmente a decisão e liste-as em 'implicit_assumptions_found'.\n\n## Contrato de Saída (JSON)\n{\n  \"recommendation\": \"<string — recomendação estruturada e fundamentada>\",\n  \"financial_metrics_impacted\": [\"<métrica 1>\", \"<métrica 2>\"],\n  \"scenario_summary\": \"<string quando scenario_required=true, caso contrário null>\",\n  \"implicit_assumptions_found\": [\"<premissa implícita detectada>\"],\n  \"game_theory_model\": {\n    \"players\": [\"<agente 1>\", \"<agente 2>\"],\n    \"strategies\": {\"<agente>\": [\"<estratégia 1>\", \"<estratégia 2>\"]},\n    \"payoffs\": {\"<combinação>\": \"<valor ou descrição>\"},\n    \"equilibrium\": \"<equilíbrio de Nash ou null>\",\n    \"strategic_risk\": \"<descrição do risco estratégico>\"\n  }\n}\n\nReturn ONLY valid JSON. No markdown fences, no explanatory text."
+  },
+  "historical_reference": {
+    "original_rationale": "Email da Diretoria de Operações datado de maio, reportando overrun de R$ 380k no COGS de proteína animal devido à estiagem no Centro-Oeste que elevou o farelo de soja em 22% vs. orçamento original. O CFO convocou reunião de revisão orçamentária mid-year para realocar verba. Alternativas avaliadas: corte de headcount (descartado — risco operacional), postergação de capex menor (aprovado parcialmente), e corte de ativações de trade marketing no varejo regional.",
+    "decision_taken": "Realocação de R$ 380k do budget de trade marketing regional para cobertura integral do overrun de COGS. Campanhas de Q3 no Nordeste postergadas para Q1 do ano seguinte. Revisão de preços de tabela em +2,5% aprovada concomitantemente para recuperação parcial de margem.",
+    "actual_outcome": "EBITDA margin encerrou o semestre em 13,4%, versus 13,1% projetado pós-realocação. A postergação das ativações gerou queda de 1,8pp de market share no canal regional em Q3, recuperado em Q1 seguinte conforme planejado."
+  }
+}

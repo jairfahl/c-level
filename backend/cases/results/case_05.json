@@ -1,0 +1,79 @@
+{
+  "case_id": "068b9dcc-9a94-451a-bf6e-f058d22bc815",
+  "simulation_label": "Revisão de Forecast Q3 sob Pressão Cambial",
+  "executed_at": "2026-03-01T21:16:32.441937+00:00",
+  "draft": {
+    "title": "Revisão de Forecast Q3: Impacto Cambial e Inflação de Insumos",
+    "description": "Revisão estruturada do forecast de EBITDA do Q3 diante de depreciação cambial de 15% no BRL/USD e alta de 18% no custo de embalagens importadas, com impacto estimado de R$ 1,2 milhões na margem operacional do trimestre.",
+    "financial_domain": "reporting",
+    "decision_type": "forecast_revision",
+    "financial_exposure": 1200000.0,
+    "time_horizon": "short",
+    "external_agents_present": false,
+    "state": "DRAFT",
+    "created_at": "2026-03-01T21:16:32.443737+00:00"
+  },
+  "classified": {
+    "state": "CLASSIFIED",
+    "impact_score": 3,
+    "framework_selected": "scenario_analysis",
+    "scenario_required": false,
+    "game_theory_active": false,
+    "classified_at": "2026-03-01T21:16:33.443739+00:00"
+  },
+  "structured": {
+    "state": "STRUCTURED",
+    "assumptions": [
+      "A taxa de câmbio BRL/USD se estabiliza no intervalo de R$5,50-R$5,75 no Q3, sem novo choque desordenado de depreciação",
+      "O hedge via NDF a R$5,70 pode ser contratado a custo de carregamento inferior a 0,5% a.m. com as contrapartes bancárias disponíveis",
+      "A revisão de preços de tabela em +1,8% não gera perda de volume superior a 2% nos canais atacado e varejo durante o trimestre",
+      "O custo de embalagens importadas não sofre alta adicional além do impacto já calculado de 18% no período de referência"
+    ],
+    "assumptions_count": 4,
+    "risks": [
+      "Nova depreciação cambial acima de R$6,00 pode ampliar a erosão de margem para além dos R$ 1,2M projetados, alcançando R$ 1,9M no pior cenário",
+      "Contração de crédito bancário pode inviabilizar a contratação do NDF nas condições de custo assumidas no modelo de sensibilidade",
+      "Repasse de preços acima de 1,8% pode ser necessário se a inflação de insumos acelerar, gerando risco de volume maior do que o modelado",
+      "Deterioração de margem simultânea em outros produtos pode inviabilizar o guidance anual, exigindo revisão do outlook ao mercado"
+    ],
+    "risks_count": 4,
+    "structured_at": "2026-03-01T21:16:34.443740+00:00"
+  },
+  "analyzed": {
+    "state": "RECOMMENDED",
+    "recommendation": "Recomendação estruturada — Framework de Análise de Cenários aplicado à Revisão de Forecast Q3 (Impacto Cambial R$ 1,2M).\n\nA revisão do forecast de EBITDA é matematicamente obrigatória dado o choque cambial comprovado: BRL/USD de R$4,90 para R$5,64 (+15,1%) com 23% do COGS exposto a embalagens importadas gera erosão de margem de 1,4pp — de 14,2% para 12,8% — equivalente a R$ 1,2M em EBITDA Q3.\n\n**Estrutura de Ação Recomendada:**\n\n(1) *Revisão formal do forecast Q3*: Comunicar internamente a revisão de margem EBITDA de 14,2% → 12,8% para Q3. Não comunicar ao mercado até encerramento do trimestre, a menos que a margem acumulada no semestre ameace violar o guidance anual de 13,5%.\n\n(2) *Hedge cambial via NDF BRL/USD para Q4*: Contratar NDF cobrindo 50% da exposição de embalagens importadas de Q4 (estimada em R$ 2,4M de custo de embalagens importadas) a taxa de R$5,70, com vencimento em dezembro. Custo de carregamento estimado em 0,3% a.m. para contrapartes com rating A+ = custo total de ~R$ 7k para proteção de ~R$ 1,2M de exposição.\n\n(3) *Reajuste de preços de tabela de +1,8%*: Implementar em outubro para todos os canais. A elasticidade histórica sugere perda de volume de 1,5–2% — aceitável dado que o ganho de receita líquida (+1,8% × 98% de volume retido) supera a perda de R$ 420k estimada por ponto de margem sacrificado.\n\n(4) *Não implementar hedge total (100%)*: O custo de carregamento do NDF a 100% de cobertura elevaria o custo de proteção para R$ 38k por trimestre, com ganho marginal limitado dado que o cenário base já prevê estabilização do câmbio.",
+    "financial_metrics_impacted": [
+      "Margem EBITDA (%) — Q3 e acumulado anual",
+      "Receita Líquida (R$) — impacto do reajuste de preços",
+      "COGS / Receita Líquida (%) — sensibilidade cambial",
+      "Resultado Financeiro — ganho/perda do NDF (R$)",
+      "FCO — Fluxo de Caixa Operacional (R$)",
+      "Volume de Vendas — elasticidade do reajuste de preços"
+    ],
+    "scenario_summary": "**Cenário Pessimista** (BRL/USD atinge R$6,00; inflação de embalagens sobe +26% vs. orçamento): Erosão de EBITDA amplia para R$ 1,9M. Margem Q3 cai para 12,1%. NDF de 50% protege R$ 920k dos R$ 1,9M de impacto. Margem líquida pós-hedge: ~12,5%. Se acumulado do ano cair abaixo de 13,0%, acionar revisão de guidance ao mercado. Ação adicional: hedgear mais 20% da exposição Q4 (total 70%) e implementar reajuste emergencial de +0,8% adicional em novembro.\n\n**Cenário Base** (BRL/USD estabiliza em R$5,64; COGS de embalagens +18%): Erosão de R$ 1,2M. Margem Q3 de 12,8%. NDF 50% gera ganho de R$ 920k em Q4. Reajuste de +1,8% absorvido com perda de volume <2%. Margem acumulada anual: ~13,3% — acima do guidance de 13,0%. Este é o cenário de referência da revisão.\n\n**Cenário Otimista** (BRL/USD aprecia para R$5,30 no Q3; embalagens sobem apenas +10%): Erosão reduz para R$ 650k. Margem Q3 sobe para 13,6%. NDF gera perda contábil de R$ 120k (hedge ficou 'out-of-the-money'). Impacto líquido positivo: margem acima do forecast original. Recomendação: não cancelar o NDF (custo de reversão > ganho incremental), manter reajuste de preços (+1,8% gera receita adicional líquida de ~R$ 800k no Q4).",
+    "implicit_assumptions_found": [
+      "A exposição cambial de embalagens importadas de Q4 é estruturalmente similar à de Q3 (R$ 2,4M de custo de embalagens importadas por trimestre) — qualquer mudança no mix de produtos ou substituição parcial de fornecedores altera o volume de exposição e, portanto, o dimensionamento do NDF.",
+      "A contratação do NDF não viola nenhum covenant financeiro que proíba instrumentos derivativos sem aprovação prévia do conselho — alguns contratos de crédito têm cláusulas restritivas a derivativos especulativos.",
+      "A revisão de preços de +1,8% pode ser implementada unilateralmente sem renegociação contratual formal com os principais clientes varejistas — caso haja contratos de preço fixo em vigor, o reajuste pode ser bloqueado até o vencimento do contrato."
+    ],
+    "game_theory_model": null,
+    "llm_unavailable": false,
+    "analyzed_at": "2026-03-01T21:16:35.443741+00:00"
+  },
+  "decided": {
+    "state": "DECIDED",
+    "executive_decision": "Aprovamos a revisão do forecast de Q3 para margem EBITDA de 12,8%, com contratação de NDF cobrindo 50% da exposição cambial de embalagens para Q4 e reajuste de preços de +1,8% a partir de outubro. Revisão de guidance anual será comunicada ao mercado se a margem consolidada ficar abaixo de 13% no acumulado.",
+    "divergence_justification": null,
+    "divergence_flag": false,
+    "decided_at": "2026-03-01T21:16:36.443743+00:00"
+  },
+  "prompts": {
+    "system_prompt": "You are a structured financial decision-making mentor for CFOs.\nYour role is to analyze financial decisions using rigorous methodology.\nNever provide opinions without structure. Always identify risks.\nNever skip assumption explicitiation.\nOutput must follow the exact JSON contract defined below.",
+    "user_prompt": "## Contexto da Decisão\n- **Tipo de decisão:** forecast_revision\n- **Domínio financeiro:** reporting\n- **Exposição financeira (BRL):** 1,200,000.00\n- **Horizonte temporal:** short\n- **Framework analítico selecionado:** scenario_analysis\n- **Análise de cenários obrigatória:** Não\n- **Teoria dos jogos ativa:** Não\n\n## Premissas Declaradas\n1. A taxa de câmbio BRL/USD se estabiliza no intervalo de R$5,50-R$5,75 no Q3, sem novo choque desordenado de depreciação\n2. O hedge via NDF a R$5,70 pode ser contratado a custo de carregamento inferior a 0,5% a.m. com as contrapartes bancárias disponíveis\n3. A revisão de preços de tabela em +1,8% não gera perda de volume superior a 2% nos canais atacado e varejo durante o trimestre\n4. O custo de embalagens importadas não sofre alta adicional além do impacto já calculado de 18% no período de referência\n\n## Riscos Identificados\n1. Nova depreciação cambial acima de R$6,00 pode ampliar a erosão de margem para além dos R$ 1,2M projetados, alcançando R$ 1,9M no pior cenário\n2. Contração de crédito bancário pode inviabilizar a contratação do NDF nas condições de custo assumidas no modelo de sensibilidade\n3. Repasse de preços acima de 1,8% pode ser necessário se a inflação de insumos acelerar, gerando risco de volume maior do que o modelado\n4. Deterioração de margem simultânea em outros produtos pode inviabilizar o guidance anual, exigindo revisão do outlook ao mercado\n\n## Instruções de Análise\n1. Construa três cenários: pessimista, base e otimista.\n2. Para cada cenário, quantifique impacto em EBITDA, FCO e métricas-chave.\n3. Indique qual cenário tem maior probabilidade e justifique.\n4. Identifique premissas implícitas não declaradas pelo CFO que impactam materialmente a decisão e liste-as em 'implicit_assumptions_found'.\n\n## Contrato de Saída (JSON)\n{\n  \"recommendation\": \"<string — recomendação estruturada e fundamentada>\",\n  \"financial_metrics_impacted\": [\"<métrica 1>\", \"<métrica 2>\"],\n  \"scenario_summary\": \"<string quando scenario_required=true, caso contrário null>\",\n  \"implicit_assumptions_found\": [\"<premissa implícita detectada>\"],\n  \"game_theory_model\": {\n    \"players\": [\"<agente 1>\", \"<agente 2>\"],\n    \"strategies\": {\"<agente>\": [\"<estratégia 1>\", \"<estratégia 2>\"]},\n    \"payoffs\": {\"<combinação>\": \"<valor ou descrição>\"},\n    \"equilibrium\": \"<equilíbrio de Nash ou null>\",\n    \"strategic_risk\": \"<descrição do risco estratégico>\"\n  }\n}\n\nReturn ONLY valid JSON. No markdown fences, no explanatory text."
+  },
+  "historical_reference": {
+    "original_rationale": "Relatório do Planejamento Financeiro de julho: O BRL depreciou 15% vs. USD no Q2 (de R$4,90 para R$5,64), impactando diretamente embalagens importadas (participação de 23% no COGS). Modelo de sensibilidade indicou erosão de R$ 1,2M na margem EBITDA do Q3, reduzindo a margem de 14,2% para 12,8%. O CFO solicitou revisão formal do forecast com três cenários: base (câmbio estabiliza em R$5,64), otimista (apreciação para R$5,30) e pessimista (depreciação para R$6,00). A tese de hedging parcial foi levantada como mitigante.",
+    "decision_taken": "Revisão do forecast de EBITDA do Q3 de R$ 68,2M (margem 14,2%) para R$ 61,4M (margem 12,8%), refletindo o cenário base. Implementação de hedge cambial de 50% da exposição de embalagens importadas via NDF BRL/USD para Q4, a R$5,70. Revisão de preços de tabela em +1,8% aprovada para Q4 como mitigante adicional.",
+    "actual_outcome": "EBITDA do Q3 encerrou em R$ 62,9M (margem 13,1%), acima da revisão de 12,8% graças ao hedge parcial que gerou ganho de R$ 920k. NDF de Q4 resultou em proteção adicional de R$ 1,1M. Revisão de preços de +1,8% absorvida pelo canal com impacto de volume abaixo de 2%."
+  }
+}

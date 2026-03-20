@@ -4,6 +4,10 @@ services:
     ports:
       - "8000:8000"
     env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://mentor:mentor123@postgres:5432/mentor_cfo
+      DATABASE_URL_SYNC: postgresql://mentor:mentor123@postgres:5432/mentor_cfo
+      REDIS_URL: redis://redis:6379/0
     depends_on:
       postgres:
         condition: service_healthy
@@ -20,7 +24,7 @@ services:
       POSTGRES_PASSWORD: mentor123
       POSTGRES_DB: mentor_cfo
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -32,7 +36,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "6380:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -47,6 +51,20 @@ services:
       POSTGRES_DB: mentor_cfo_test
     ports:
       - "5433:5432"
+
+  frontend:
+    build: ../frontend
+    ports:
+      - "3002:3000"
+    environment:
+      VITE_API_URL: http://app:8000
+    depends_on:
+      - app
+    volumes:
+      - ../frontend/src:/app/src
+      - ../frontend/public:/app/public
+      - ../frontend/index.html:/app/index.html
+      - ../frontend/vite.config.js:/app/vite.config.js
 
 volumes:
   postgres_data:

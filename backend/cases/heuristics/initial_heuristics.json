@@ -1,0 +1,126 @@
+[
+  {
+    "_heuristic_id": 1,
+    "_learned_from_case": "Caso 02 — Renegociação de CCBs: Sindicato de Bancos R$ 52M",
+    "_phase": "P-09 Simulation",
+
+    "decision_type": "debt_structuring",
+    "financial_domain": "funding",
+    "heuristic_key": "bilateral_negotiation_over_syndicate",
+    "heuristic_value": {
+      "learned_from": "case-02-renegociacao-ccbs-52m",
+      "pattern": {
+        "trigger": "external_agents_present=true AND decision_type=debt_structuring AND num_creditors >= 3",
+        "always_check": [
+          "Posição relativa de cada credor no sindicato (senior vs. junior)",
+          "Relacionamento operacional existente (cash management, tarifas) com cada banco",
+          "BATNA de cada credor: custo de concentração de vencimentos vs. concessão de spread",
+          "Existência de cláusula cross-default entre os instrumentos do sindicato",
+          "Reserva de caixa disponível — não revelar para os credores antes do fechamento"
+        ],
+        "recommended_approach": "Negociar bilateralmente com credores de relacionamento operacional (bancos comerciais) primeiro, usando a proposta do credor de capital markets como BATNA explícito. Retornar ao credor de capital markets após acordo bilateral estabelecido.",
+        "avoid": [
+          "Negociação multilateral simultânea — permite coordenação tácita entre credores",
+          "Revelar reserva de caixa antes do fechamento — remove incentivo dos credores a negociar"
+        ],
+        "common_risks": [
+          "Colisão tácita entre os membros do sindicato antes da negociação bilateral",
+          "Acionamento de cláusula cross-default ao restructurar qualquer passivo paralelo",
+          "Downgrade de rating durante o processo encarecendo spread da nova emissão"
+        ],
+        "suggested_framework": "game_theory"
+      },
+      "confidence": 0.87,
+      "occurrences": 1,
+      "evidence": {
+        "outcome": "Redução do custo médio de 14,9% para 12,4% a.a. Economia de R$ 1,3M/ano. DSCR de 1,18x → 1,41x.",
+        "forecast_accuracy_score": 9,
+        "risk_realization_rate": 10.0
+      }
+    }
+  },
+
+  {
+    "_heuristic_id": 2,
+    "_learned_from_case": "Caso 03 — Gestão de Liquidez: Gap de Caixa R$ 3,8M — Janela 90 dias",
+    "_phase": "P-09 Simulation",
+
+    "decision_type": "liquidity_management",
+    "financial_domain": "treasury",
+    "heuristic_key": "hybrid_coverage_for_short_liquidity_gaps",
+    "heuristic_value": {
+      "learned_from": "case-03-gestao-liquidez-3.8m",
+      "pattern": {
+        "trigger": "exposure BETWEEN 1M AND 10M AND time_horizon=short AND decision_type=liquidity_management",
+        "always_check": [
+          "Saldo médio dos últimos 12 meses vs. gap projetado",
+          "Disponibilidade e custo da linha de crédito rotativo (prazo de aviso prévio)",
+          "Carteira elegível para FIDC/desconto de duplicatas (liquidez e taxa)",
+          "Covenants de utilização de crédito rotativo (teto percentual do limite)",
+          "PMR atual vs. histórico — atraso sistêmico vs. pontual"
+        ],
+        "recommended_approach": "Abordagem híbrida sequencial: (1) negociar prazo adicional com fornecedores-chave sem custo; (2) descontar duplicatas via FIDC para parcela de curto prazo; (3) sacar crédito rotativo apenas para o saldo residual e por prazo mínimo. Limitar o uso do rotativo a 60 dias para evitar rolagem.",
+        "avoid": [
+          "Sacar 100% do crédito rotativo de uma vez — cria dependência bancária e sinaliza fragilidade",
+          "Desconto de duplicatas sem verificar taxa de desconto vs. custo do rotativo",
+          "Negociar prazo com fornecedores após comunicar o gap — reduz poder de barganha"
+        ],
+        "common_risks": [
+          "Deterioração adicional do PMR além do projetado ampliando o gap",
+          "Recusa de fornecedores estratégicos em conceder prazo adicional",
+          "Sinalização de fragilidade de liquidez ao mercado por vazamento de informação"
+        ],
+        "suggested_framework": "risk_matrix"
+      },
+      "confidence": 0.91,
+      "occurrences": 1,
+      "evidence": {
+        "outcome": "Gap coberto em 78 dias vs. 90 projetados. Custo efetivo R$ 52k vs. R$ 68k projetados. Sem violação de covenants.",
+        "forecast_accuracy_score": 9,
+        "risk_realization_rate": 15.0
+      }
+    }
+  },
+
+  {
+    "_heuristic_id": 3,
+    "_learned_from_case": "Caso 04 — Aprovação de CAPEX: Nova Linha de Produção Recife R$ 18M",
+    "_phase": "P-09 Simulation",
+
+    "decision_type": "investment_evaluation",
+    "financial_domain": "funding",
+    "heuristic_key": "pe_fund_alignment_in_coinvestment_structures",
+    "heuristic_value": {
+      "learned_from": "case-04-capex-recife-18m",
+      "pattern": {
+        "trigger": "external_agents_present=true AND decision_type=investment_evaluation AND coinvestor_type=private_equity",
+        "always_check": [
+          "Horizon do mandato do fundo de PE vs. horizon do projeto (lock-up mínimo necessário)",
+          "Cláusulas de saída: tag-along, drag-along, put option — e gatilhos de acionamento",
+          "Alinhamento de metas: o fundo PE aceita ROIC como métrica de performance?",
+          "Risco de downside sharing: o fundo PE participa das perdas proporcionalmente?",
+          "Aprovações necessárias do Limited Partner (LP) do fundo para o investimento específico"
+        ],
+        "recommended_approach": "Negociar lock-up mínimo de 36 meses com cláusula de tag-along (não drag-along) para preservar controle. Vincular opção de put do PE a gatilhos objetivos (ROIC abaixo de X%) para evitar saída antecipada. Usar a participação do PE como alavancagem para reduzir desembolso próprio, não como sinal de risco do projeto.",
+        "avoid": [
+          "Aceitar cláusula de drag-along sem floor de valuation — força saída a preço de estresse",
+          "Ignorar o mandato do fundo PE — fundo com mandato de 3 anos em projeto de 7 anos cria conflito estrutural",
+          "Compartilhar projeções otimistas internas com o PE antes de fechar os termos"
+        ],
+        "common_risks": [
+          "Fundo PE exercendo opção de put antecipada em avaliação inferior ao VPL projetado",
+          "Drag-along por iniciativa do LP em situação de desinvestimento do fundo",
+          "Conflito de governance na SPE entre empresa majoritária e PE minoritário ativo"
+        ],
+        "suggested_framework": "game_theory"
+      },
+      "confidence": 0.83,
+      "occurrences": 1,
+      "evidence": {
+        "outcome": "Linha operacional 8 meses antes do prazo. ROIC 18,2% no Ano 2 (antes do Ano 3 projetado). PE exerceu tag-along no Ano 3 com múltiplo 2,1x.",
+        "forecast_accuracy_score": 10,
+        "risk_realization_rate": 12.0
+      }
+    }
+  }
+]

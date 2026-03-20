@@ -1,0 +1,172 @@
+{
+  "1": {
+    "recommendation": "Recomendação estruturada — Framework PDCA aplicado à Realocação Orçamentária Q2.\n\n**PLAN (Diagnóstico):** O overrun de COGS de R$ 380k é de natureza estrutural-temporária: a alta de 22% no farelo de soja é causada por estiagem no Centro-Oeste e tem correlação histórica de reversão parcial em 6–9 meses. A postergação das ativações de trade marketing regional é o único vetor de financiamento disponível com baixo risco de dano permanente à posição competitiva, desde que executada antes do início das campanhas de Q3 dos concorrentes. A revisão de preços de +2,5% é essencial para preservar margem sem depender de hedge de commodities.\n\n**DO (Ações):** (1) Remanejamento imediato de R$ 380k de trade marketing regional para COGS — sem corte de headcount nem postergação de capex estratégico. (2) Aprovação simultânea da revisão de preços de tabela em +2,5%, com vigência a partir de 1° de agosto. (3) Comunicação proativa ao canal varejista sobre a postergação das campanhas regionais, com data-commit para Q1 do exercício seguinte.\n\n**CHECK (Métricas de controle):** (a) EBITDA margin mensal vs. 13,1% revisado — desvio >0,5pp aciona revisão de emergência; (b) Market share no canal regional Nordeste quinzenal — queda >3pp vs. junho aciona ativação emergencial de PDV mínimo; (c) Preço médio de farelo de soja semanal — alta adicional >5% reabre a discussão de hedge.\n\n**ACT (Ajustes contingentes):** Se o market share regional cair >5pp até outubro, redirecionar R$ 80k do budget de mídia nacional para ativações de PDV emergenciais no canal afetado. Se o farelo recuperar >10% do preço, liberar R$ 120k das ativações postergadas ainda em Q3.",
+    "financial_metrics_impacted": [
+      "EBITDA margin (%)",
+      "OpEx de Marketing (R$)",
+      "COGS / Receita Líquida (%)",
+      "Market Share Canal Regional (%)",
+      "Variância Orçamentária COGS (R$)"
+    ],
+    "scenario_summary": null,
+    "implicit_assumptions_found": [
+      "A elasticidade-preço da demanda no canal regional é suficientemente baixa para absorver reajuste de 2,5% sem ruptura de contratos com redes varejistas do Nordeste.",
+      "Os concorrentes diretos não realizarão ativações compensatórias no canal regional durante Q3, dado que a ausência das campanhas próprias não é pública.",
+      "O canal varejista regional não possui alternativas de fornecimento equivalente que tornem a perda de shelf space permanente em razão da postergação."
+    ],
+    "game_theory_model": null,
+    "llm_unavailable": false
+  },
+
+  "2": {
+    "recommendation": "Recomendação estruturada — Framework de Teoria dos Jogos aplicado à Renegociação de CCBs R$ 52M.\n\nO sindicato de credores (Itaú BBA, Bradesco BBI, BTG Pactual) forma um jogo não-cooperativo com informação parcial: cada banco conhece sua própria posição mas não a disposição completa dos demais para reduzir spread. A assimetria de posições (BTG como credor minoritário com perfil de capital markets; Itaú e Bradesco como detentores de relacionamento operacional) cria incentivos diferenciados que o CFO deve explorar separadamente antes de qualquer negociação conjunta.\n\n**Estratégia recomendada — Barganha Sequencial com BATNA declarado:** (1) Negociar bilateralmente com Itaú+Bradesco primeiro, usando a proposta BTG (debenture) como BATNA explícito — reduz o poder de barganha dos bancos comerciais. (2) Após acordo com Itaú+Bradesco em CDI+1,1% (vs. CDI+1,4% atual), retornar ao BTG com posição fortalecida para negociar o spread da debenture IPCA+5,8%. (3) Não revelar o tamanho da reserva de caixa próprio (R$ 8M) para evitar que os credores elevem o spread esperando amortização parcial antecipada.\n\n**Equilíbrio de Nash:** A estratégia dominante para os bancos é aceitar a renegociação com redução moderada de spread, pois o custo de não negociar (risco de concentração de vencimentos em carteira, perda de relacionamento e tarifas operacionais) supera o ganho marginal de manter CDI+1,4%. O equilíbrio é: Itaú+Bradesco aceitam CDI+1,1% em CCB de 36 meses; BTG aceita IPCA+5,8% em debenture de 48 meses com cláusula de amortização acelerada como sinal de crença na trajetória de EBITDA da empresa.",
+    "financial_metrics_impacted": [
+      "Custo Médio Ponderado da Dívida (% a.a.)",
+      "DSCR — Debt Service Coverage Ratio",
+      "Despesas Financeiras (R$/ano)",
+      "VPL da Economia de Juros (R$)",
+      "Alavancagem Dívida Líquida/EBITDA"
+    ],
+    "scenario_summary": "**Cenário Pessimista** (Selic sobe para 12,0% antes do fechamento): CDI sobe para ~11,5%; custo do novo CCB sobe para ~12,6% a.a. — ainda favorável vs. CDI+1,4% atual (13,1%). Economia anual cai de R$ 1,3M para R$ 780k. DSCR permanece acima de 1,2x. Recomendação: manter a renegociação, acelerar fechamento.\n\n**Cenário Base** (Selic terminal em 10,0–10,5%): Custo médio pós-renegociação de 12,4% a.a. Economia anual de R$ 1,3M. DSCR sobe de 1,18x para 1,41x. Este é o cenário de referência da recomendação.\n\n**Cenário Otimista** (Selic cai para 9,0% em 12 meses): CDI cai para ~9,5%; CCB fica a ~10,6% a.a. e debenture IPCA+5,8% fica ~10,5% a.a. (assumindo IPCA de 4,5%). Custo médio pós-renegociação cai para ~10,6% a.a. BTG provavelmente exerce a cláusula de amortização acelerada no Ano 2. Economia potencial sobe para R$ 2,2M/ano.",
+    "implicit_assumptions_found": [
+      "Os três bancos não compartilham informações entre si sobre suas propostas individuais antes da negociação multilateral — condição necessária para que a estratégia de barganha sequencial bilateral funcione.",
+      "A empresa não possui covenants de negative pledge ou cross-default que impeçam a emissão de debenture enquanto as CCBs antigas ainda estão vigentes.",
+      "O rating 'AA-' da Fitch se mantém estável durante o processo de renegociação — queda para 'A+' poderia encarecer o spread BTG em 40–60bps.",
+      "A TJLP não é referência nesta operação (CCBs são a CDI); portanto movimentos de TJLP não impactam o custo durante o período de negociação."
+    ],
+    "game_theory_model": {
+      "players": [
+        "CFO (empresa devedora)",
+        "Itaú BBA (credor CCB 1 — R$ 20M)",
+        "Bradesco BBI (credor CCB 2 — R$ 11,2M)",
+        "BTG Pactual (credor CCB 3 / estruturador de debenture — R$ 20,8M)"
+      ],
+      "strategies": {
+        "CFO (empresa devedora)": [
+          "Renegociar bilateralmente (separar Itaú+Bradesco de BTG)",
+          "Negociar multilateralmente (reunião conjunta com sindicato)",
+          "Amortizar R$ 8M com caixa próprio e renegociar saldo menor"
+        ],
+        "Itaú BBA": [
+          "Manter spread CDI+1,4% (posição atual)",
+          "Reduzir para CDI+1,1% com prazo estendido (36 meses)",
+          "Reduzir para CDI+1,0% em troca de receitas de cash management"
+        ],
+        "Bradesco BBI": [
+          "Seguir posição do Itaú (coordenação tácita)",
+          "Reduzir para CDI+1,1% de forma independente",
+          "Propor swap para debenture como o BTG"
+        ],
+        "BTG Pactual": [
+          "Manter CCB com redução mínima de spread",
+          "Propor debenture IPCA+5,8% com cláusula de amortização acelerada",
+          "Propor debenture conversível como opção premium"
+        ]
+      },
+      "payoffs": {
+        "CFO × Itaú+Bradesco (CDI+1,1%) × BTG (IPCA+5,8%)": "Empresa: economia R$ 1,3M/ano, DSCR 1,41x. Itaú+Bradesco: mantêm relacionamento operacional + fee de estruturação. BTG: margem de underwriting + potencial de amortização acelerada.",
+        "CFO × Negociação multilateral × CDI+1,4% mantido": "Empresa: zero ganho, risco de manutenção de DSCR abaixo de covenant. Bancos: sem concessão necessária.",
+        "CFO × Amortização parcial R$ 8M × renegociação de saldo": "Empresa: reduz exposição mas sacrifica liquidez estratégica. Saldo menor facilita negociação mas enfraquece posição de caixa para operação."
+      },
+      "equilibrium": "Equilíbrio de Nash em estratégia dominante: CFO negocia bilateralmente (Itaú+Bradesco separado de BTG) → Itaú+Bradesco aceitam CDI+1,1% → BTG propõe debenture IPCA+5,8% com cláusula de amortização acelerada. Este equilíbrio é Pareto-ótimo para todos os jogadores: empresa reduz custo, bancos preservam relacionamento e evitam inadimplência concentrada.",
+      "strategic_risk": "O principal risco estratégico é a colisão tácita entre os três bancos — se compartilharem posições antes da negociação bilateral, a estratégia sequencial perde eficácia e o CFO perde poder de barganha. Segundo risco: BTG pode ameaçar exercer opção de vencimento antecipado por deterioração de covenant para forçar termos mais favoráveis à debenture."
+    },
+    "llm_unavailable": false
+  },
+
+  "3": {
+    "recommendation": "Recomendação estruturada — Framework de Matriz de Riscos aplicado à Gestão de Liquidez Q4 (Gap R$ 3,8M, janela 90 dias).\n\n**Matriz de Riscos — Análise dos 4 riscos identificados:**\n\n| Risco | Prob. (1–5) | Impacto (1–5) | Score | Prioridade |\n|---|---|---|---|---|\n| PMR deteriora além de 60 dias | 3 | 5 | 15 | CRÍTICO |\n| Alta do CDI eleva custo rotativo | 2 | 3 | 6 | MODERADO |\n| Fornecedores recusam prazo adicional | 2 | 2 | 4 | BAIXO |\n| Sinalização de fragilidade ao mercado | 1 | 4 | 4 | BAIXO |\n\n**Mitigações para os Top 3 riscos:**\n\n*Risk 1 — PMR além de 60 dias (score 15):* Implementar gestão ativa de contas a receber com cobrança dedicada para as três redes (Carrefour, GPA, Atacadão). Contratar seguro-garantia de duplicatas para o tranche do FIDC. Se PMR não normalizar em 45 dias, acionar antecipação das demais duplicatas elegíveis ao FIDC (R$ 500k adicionais disponíveis).\n\n*Risk 2 — Alta do CDI (score 6):* Limitar o prazo de utilização do crédito rotativo a 60 dias. Priorizar liquidação do rotativo assim que os primeiros recebíveis das redes entrarem (antecipação via FIDC garante caixa mais rápido). Evitar rolagem do rotativo além de 30 dias.\n\n*Risk 3 — Fornecedores recusam prazo (score 4):* Abordar fornecedores de embalagem com proposta de contrapartida (aumento de pedido de Q1, garantia de exclusividade por 6 meses). Se recusados, substituir o tranche de R$ 300k por desconto adicional de duplicatas via FIDC.\n\n**Recomendação de abordagem híbrida otimizada:** Saque de R$ 2,5M do crédito rotativo (custo CDI+2,2%, max 60 dias = ~R$ 22k) + desconto de R$ 1,0M em duplicatas via FIDC (1,0% a.m., 30 dias = ~R$ 10k) + negociação de R$ 300k com fornecedores (custo zero). Total gap coberto = R$ 3,8M. Custo máximo projetado = R$ 68k em 90 dias. Custo preferencial se PMR normalizar em 60 dias = R$ 52k.",
+    "financial_metrics_impacted": [
+      "Capital de Giro Líquido (R$)",
+      "Índice de Liquidez Corrente",
+      "Prazo Médio de Recebimento — PMR (dias)",
+      "Custo de Captação de Curto Prazo (% a.m.)",
+      "VaR de Liquidez (R$ 90 dias)",
+      "Exposição Financeira Gap de Caixa (R$)"
+    ],
+    "scenario_summary": "**Cenário Pessimista** (PMR piora para 75 dias; fornecedores recusam prazo): Gap adicional de R$ 700k além dos R$ 3,8M projetados. Necessidade de saque total da linha rotativa (R$ 5,0M) + FIDC de R$ 1,5M. Custo eleva para ~R$ 95k no período. DSCR ainda não violado. Ação: acionar seguro-garantia de duplicatas e comunicar ao CFO plano de contingência de R$ 5,2M.\n\n**Cenário Base** (PMR normaliza em 60 dias; fornecedores aprovam prazo de 30 dias): Gap coberto em 78 dias. Custo efetivo de R$ 52k (abaixo dos R$ 68k projetados). Este é o cenário de referência.\n\n**Cenário Otimista** (PMR cai para 48 dias em 45 dias; recebíveis adiantados pelas redes): Gap coberto em 45 dias. Crédito rotativo liquidado antes do primeiro ciclo de juros completo. Custo total estimado de R$ 28k. Reserva de caixa volta a R$ 2,5M ao final do trimestre.",
+    "implicit_assumptions_found": [
+      "A linha de crédito rotativo de R$ 5M não possui covenant de utilização mínima que exija aviso prévio de 5+ dias úteis antes do saque — atraso no saque pode comprometer o timing da cobertura do gap.",
+      "O FIDC próprio possui capacidade de desconto disponível de pelo menos R$ 1,0M de duplicatas elegíveis de curto prazo — carteira de recebíveis pode estar parcialmente comprometida com outros instrumentos.",
+      "A informação sobre o gap de liquidez não vazou para fornecedores ou clientes antes da negociação — vazamento poderia induzir endurecimento de condições de fornecimento e acelerar a deterioração do PMR."
+    ],
+    "game_theory_model": null,
+    "llm_unavailable": false
+  },
+
+  "4": {
+    "recommendation": "Recomendação estruturada — Framework de Teoria dos Jogos aplicado à Aprovação de CAPEX R$ 18M — Nova Linha Recife.\n\nEste investimento envolve quatro agentes estratégicos com incentivos parcialmente alinhados e parcialmente conflitantes: a empresa, o BNDES-Finem, o fundo de PE regional e o Governo de Pernambuco. A estrutura de co-investimento cria um jogo cooperativo com potencial de deserção em momentos específicos do horizonte do projeto.\n\n**Estratégia recomendada:** Aprovação do investimento com a estrutura BNDES 60% + PE 20% + recursos próprios 20%, com as seguintes salvaguardas contratuais: (1) definir floor de ROIC de 18% como gatilho para exercício de amortização acelerada BNDES (evita pre-payment surpresa); (2) negociar cláusula de drag-along com lock-up mínimo de 36 meses para o fundo PE (evita saída prematura que force avaliação desfavorável da SPE); (3) vincular o incentivo ICMS ao volume de empregos diretos na planta — isso cria um compromisso público que dificulta a revisão legislativa unilateral pelo governo.\n\n**Análise de viabilidade:** TIR de 21,4% pós-tax com incentivo vs. WACC de 15,3% — spread positivo de 6,1pp é robusto a sensibilidades de até ±3% na TIR. VPL positivo de R$ 6,2M a 15,3% de WACC com incentivo ICMS; sem o incentivo, VPL cai para R$ 1,8M — portanto, a proteção contratual do incentivo é condição necessária para a viabilidade da aprovação. Payback descontado: 4,5 anos com incentivo vs. 7 anos sem.",
+    "financial_metrics_impacted": [
+      "TIR do Projeto (% pós-tax)",
+      "VPL a WACC de 15,3% (R$)",
+      "ROIC da SPE — Ano 3 (%)",
+      "Payback Descontado (anos)",
+      "Dívida BNDES / EBITDA SPE",
+      "Custo Médio Ponderado de Capital da SPE (%)"
+    ],
+    "scenario_summary": "**Cenário Pessimista** (incentivo ICMS suspenso no Ano 5; crescimento de mercado cai para 6% a.a.): TIR cai de 21,4% para 13,1% pós-tax — abaixo do WACC (15,3%). VPL torna-se negativo em R$ 2,1M. Ação recomendada: acionar cláusula de revisão do cronograma de BNDES + buscar renegociação do incentivo ou crédito fiscal alternativo. Projeto ainda operacionalmente viável, mas destruição de valor marginal.\n\n**Cenário Base** (incentivo mantido 15 anos; crescimento 10–14% a.a.): TIR 21,4%. VPL R$ 6,2M. ROIC Ano 3: 18%. Linha operacional em 18 meses. Este é o cenário de referência da aprovação.\n\n**Cenário Otimista** (crescimento de mercado de 18% a.a.; fundo PE mantém participação por 5 anos): TIR sobe para 27,8%. VPL de R$ 11,4M. ROIC de 24% no Ano 3. BNDES pode ser amortizado antecipadamente no Ano 4 liberando caixa para expansão de capacidade adicional na SPE.",
+    "implicit_assumptions_found": [
+      "A SPE não terá receitas nos primeiros 10 meses de construção — o BNDES-Finem financia por desembolso por avanço físico de obra, e o cronograma de desembolso precisa ser validado contra o cronograma do EPC contratado.",
+      "O fundo de PE regional possui mandato de investimento compatível com o prazo de maturação de 3–5 anos — fundos de PE early-stage com mandato de 3 anos podem ter conflito de horizon com o perfil do projeto.",
+      "A planta de Recife não exigirá aprovação de licença ambiental estadual adicional além do alvará municipal — processos de licenciamento ambiental estadual podem adicionar 6–18 meses ao cronograma."
+    ],
+    "game_theory_model": {
+      "players": [
+        "Empresa (investidor majoritário 80%)",
+        "BNDES-Finem (financiador de longo prazo 60%)",
+        "Fundo de PE Regional (coinvestidor equity 20% da SPE)",
+        "Governo de Pernambuco (concedente do incentivo ICMS)"
+      ],
+      "strategies": {
+        "Empresa (investidor majoritário 80%)": [
+          "Aprovar com estrutura proposta (BNDES 60% + PE 20% + próprios 20%)",
+          "Aprovar com amortização parcial de R$ 8M de caixa (reduz BNDES para 40%)",
+          "Postergar para próximo orçamento (Ano+1)"
+        ],
+        "BNDES-Finem (financiador de longo prazo 60%)": [
+          "Manter condições TJLP+2%, 120 meses",
+          "Exigir garantia adicional (aval da holding) para TJLP+2%",
+          "Reduzir prazo para 84 meses com spread menor (TJLP+1,5%)"
+        ],
+        "Fundo de PE Regional (coinvestidor equity 20% da SPE)": [
+          "Investir R$ 3,6M com lock-up de 36 meses e tag-along",
+          "Investir com cláusula de put no Ano 2 ao VPL projetado",
+          "Não investir — aguardar breakeven operacional para entrar"
+        ],
+        "Governo de Pernambuco (concedente do incentivo ICMS)": [
+          "Manter incentivo ICMS 40% por 15 anos conforme decreto",
+          "Revisar incentivo para 30% no Ano 6 por pressão fiscal estadual",
+          "Condicionar renovação ao cumprimento de metas de empregos diretos"
+        ]
+      },
+      "payoffs": {
+        "Empresa aprova × BNDES mantém × PE investe × Governo mantém incentivo": "Empresa: TIR 21,4%, VPL R$ 6,2M, ROIC Ano 3 de 18%. BNDES: carteira de infraestrutura agroindustrial NE com risco baixo. PE: múltiplo 2,0–2,5x em 4 anos. Governo: 180 empregos diretos + ICMS adicional sobre produção.",
+        "Empresa aprova × BNDES exige aval holding × PE não investe": "Empresa: alavancagem aumenta, WACC sobe para 17,2%. VPL cai para R$ 2,8M. Projeto marginalmente viável. Necessidade de revisar estrutura de capital da SPE.",
+        "Empresa posterga para Ano+1": "Empresa: perde janela do incentivo ICMS de 40% (pode ser revisado). Concorrente pode anunciar expansão regional capturando mercado-alvo. Custo de oportunidade estimado em R$ 3,5M em VPL perdido."
+      },
+      "equilibrium": "Equilíbrio de Nash cooperativo: Empresa aprova com estrutura proposta → BNDES mantém TJLP+2% com aval de recebíveis da SPE (não da holding) → PE investe com lock-up 36 meses + tag-along → Governo mantém incentivo com cláusula de metas de emprego como âncora contratual. Este equilíbrio maximiza o payoff agregado dos quatro jogadores e é auto-sustentável desde que as metas de produção e emprego sejam cumpridas nos dois primeiros anos.",
+      "strategic_risk": "O principal risco estratégico é a deserção unilateral do Governo de Pernambuco (revisão do incentivo ICMS) motivada por pressão fiscal estadual — evento exógeno e de baixa probabilidade (histórico de 15 anos de incentivos industriais no NE), mas de alto impacto (VPL torna-se negativo). A salvaguarda é vincular o incentivo a metas de emprego público, tornando a revisão politicamente custosa. Segundo risco: fundo PE exercendo put no Ano 2 com avaliação inferior ao VPL projetado, forçando a empresa a absorver a participação a preço de estresse."
+    },
+    "llm_unavailable": false
+  },
+
+  "5": {
+    "recommendation": "Recomendação estruturada — Framework de Análise de Cenários aplicado à Revisão de Forecast Q3 (Impacto Cambial R$ 1,2M).\n\nA revisão do forecast de EBITDA é matematicamente obrigatória dado o choque cambial comprovado: BRL/USD de R$4,90 para R$5,64 (+15,1%) com 23% do COGS exposto a embalagens importadas gera erosão de margem de 1,4pp — de 14,2% para 12,8% — equivalente a R$ 1,2M em EBITDA Q3.\n\n**Estrutura de Ação Recomendada:**\n\n(1) *Revisão formal do forecast Q3*: Comunicar internamente a revisão de margem EBITDA de 14,2% → 12,8% para Q3. Não comunicar ao mercado até encerramento do trimestre, a menos que a margem acumulada no semestre ameace violar o guidance anual de 13,5%.\n\n(2) *Hedge cambial via NDF BRL/USD para Q4*: Contratar NDF cobrindo 50% da exposição de embalagens importadas de Q4 (estimada em R$ 2,4M de custo de embalagens importadas) a taxa de R$5,70, com vencimento em dezembro. Custo de carregamento estimado em 0,3% a.m. para contrapartes com rating A+ = custo total de ~R$ 7k para proteção de ~R$ 1,2M de exposição.\n\n(3) *Reajuste de preços de tabela de +1,8%*: Implementar em outubro para todos os canais. A elasticidade histórica sugere perda de volume de 1,5–2% — aceitável dado que o ganho de receita líquida (+1,8% × 98% de volume retido) supera a perda de R$ 420k estimada por ponto de margem sacrificado.\n\n(4) *Não implementar hedge total (100%)*: O custo de carregamento do NDF a 100% de cobertura elevaria o custo de proteção para R$ 38k por trimestre, com ganho marginal limitado dado que o cenário base já prevê estabilização do câmbio.",
+    "financial_metrics_impacted": [
+      "Margem EBITDA (%) — Q3 e acumulado anual",
+      "Receita Líquida (R$) — impacto do reajuste de preços",
+      "COGS / Receita Líquida (%) — sensibilidade cambial",
+      "Resultado Financeiro — ganho/perda do NDF (R$)",
+      "FCO — Fluxo de Caixa Operacional (R$)",
+      "Volume de Vendas — elasticidade do reajuste de preços"
+    ],
+    "scenario_summary": "**Cenário Pessimista** (BRL/USD atinge R$6,00; inflação de embalagens sobe +26% vs. orçamento): Erosão de EBITDA amplia para R$ 1,9M. Margem Q3 cai para 12,1%. NDF de 50% protege R$ 920k dos R$ 1,9M de impacto. Margem líquida pós-hedge: ~12,5%. Se acumulado do ano cair abaixo de 13,0%, acionar revisão de guidance ao mercado. Ação adicional: hedgear mais 20% da exposição Q4 (total 70%) e implementar reajuste emergencial de +0,8% adicional em novembro.\n\n**Cenário Base** (BRL/USD estabiliza em R$5,64; COGS de embalagens +18%): Erosão de R$ 1,2M. Margem Q3 de 12,8%. NDF 50% gera ganho de R$ 920k em Q4. Reajuste de +1,8% absorvido com perda de volume <2%. Margem acumulada anual: ~13,3% — acima do guidance de 13,0%. Este é o cenário de referência da revisão.\n\n**Cenário Otimista** (BRL/USD aprecia para R$5,30 no Q3; embalagens sobem apenas +10%): Erosão reduz para R$ 650k. Margem Q3 sobe para 13,6%. NDF gera perda contábil de R$ 120k (hedge ficou 'out-of-the-money'). Impacto líquido positivo: margem acima do forecast original. Recomendação: não cancelar o NDF (custo de reversão > ganho incremental), manter reajuste de preços (+1,8% gera receita adicional líquida de ~R$ 800k no Q4).",
+    "implicit_assumptions_found": [
+      "A exposição cambial de embalagens importadas de Q4 é estruturalmente similar à de Q3 (R$ 2,4M de custo de embalagens importadas por trimestre) — qualquer mudança no mix de produtos ou substituição parcial de fornecedores altera o volume de exposição e, portanto, o dimensionamento do NDF.",
+      "A contratação do NDF não viola nenhum covenant financeiro que proíba instrumentos derivativos sem aprovação prévia do conselho — alguns contratos de crédito têm cláusulas restritivas a derivativos especulativos.",
+      "A revisão de preços de +1,8% pode ser implementada unilateralmente sem renegociação contratual formal com os principais clientes varejistas — caso haja contratos de preço fixo em vigor, o reajuste pode ser bloqueado até o vencimento do contrato."
+    ],
+    "game_theory_model": null,
+    "llm_unavailable": false
+  }
+}

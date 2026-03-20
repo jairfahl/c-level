@@ -22,7 +22,7 @@ import pytest
 
 from app.core.audit_logger import AuditAction, AuditLogger
 from app.core.exceptions import InvalidStateTransitionError
-from app.core.framework_selector import FrameworkSelector, _BASE_FRAMEWORK, _GAME_THEORY_ELIGIBLE
+from app.core.framework_selector import FRAMEWORK_CATALOG, FrameworkSelector, _BASE_FRAMEWORK, _GAME_THEORY_ELIGIBLE
 from app.core.game_theory import GAME_THEORY_ELIGIBLE_TYPES, GameTheoryActivator
 from app.core.impact_scorer import FinancialImpactScorer, ScoreResult
 from app.core.state_machine import VALID_TRANSITIONS, StateMachineController
@@ -205,6 +205,98 @@ class TestFrameworkSelector:
     def test_game_theory_eligible_is_subset_of_decision_types(self):
         all_types = set(DecisionType)
         assert _GAME_THEORY_ELIGIBLE.issubset(all_types)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  FrameworkCatalog
+# ─────────────────────────────────────────────────────────────────────────────
+
+class TestFrameworkCatalog:
+    """Verifica o catálogo rico de frameworks e os métodos catalog()/suggest_detailed()."""
+
+    def test_catalog_covers_all_framework_types(self):
+        """Garante que FRAMEWORK_CATALOG tem uma entrada para cada FrameworkType."""
+        for fw in FrameworkType:
+            assert fw in FRAMEWORK_CATALOG, f"FrameworkType.{fw.value} ausente no FRAMEWORK_CATALOG"
+
+    def test_catalog_entries_have_required_keys(self):
+        required_keys = {"name", "description", "icon_label", "complexity", "recommended_for", "pairs_well_with", "rationale"}
+        for fw, entry in FRAMEWORK_CATALOG.items():
+            for key in required_keys:
+                assert key in entry, f"Chave '{key}' ausente no FRAMEWORK_CATALOG[{fw.value}]"
+
+    def test_catalog_complexity_values_are_valid(self):
+        valid = {"baixa", "média", "alta"}
+        for fw, entry in FRAMEWORK_CATALOG.items():
+            assert entry["complexity"] in valid, f"Complexidade inválida em {fw.value}: {entry['complexity']}"
+
+    def test_catalog_method_returns_all_frameworks(self):
+        result = FrameworkSelector.catalog()
+        assert len(result) == len(FrameworkType)
+        frameworks_returned = {e["framework"] for e in result}
+        for fw in FrameworkType:
+            assert fw in frameworks_returned
+
+    def test_catalog_entry_structure(self):
+        result = FrameworkSelector.catalog()
+        entry = result[0]
+        assert "framework" in entry
+        assert "name" in entry
+        assert "description" in entry
+        assert "icon_label" in entry
+        assert "complexity" in entry
+        assert "recommended_for" in entry
+        assert "pairs_well_with" in entry
+        assert "rationale" in entry
+
+    def test_suggest_detailed_returns_primary_first(self):
+        details = FrameworkSelector.suggest_detailed(
+            DecisionType.budget_adjustment, False, impact_score=2, financial_exposure=50_000.0,
+        )
+        assert len(details) >= 1
+        assert details[0]["is_primary"] is True
+        assert details[0]["framework"] == FrameworkType.pdca
+
+    def test_suggest_detailed_marks_only_one_primary(self):
+        details = FrameworkSelector.suggest_detailed(
+            DecisionType.capital_allocation, False, impact_score=4, financial_exposure=5_000_000.0,
+        )
+        primaries = [d for d in details if d["is_primary"]]
+        assert len(primaries) == 1
+
+    def test_suggest_detailed_includes_why_suggested(self):
+        details = FrameworkSelector.suggest_detailed(
+            DecisionType.budget_adjustment, False, impact_score=4, financial_exposure=50_000.0,
+        )
+        for d in details:
+            assert "why_suggested" in d
+            assert len(d["why_suggested"]) > 0
+
+    def test_suggest_detailed_high_impact_adds_decision_tree(self):
+        details = FrameworkSelector.suggest_detailed(
+            DecisionType.budget_adjustment, False, impact_score=4, financial_exposure=50_000.0,
+        )
+        frameworks = [d["framework"] for d in details]
+        assert FrameworkType.decision_tree in frameworks
+
+    def test_suggest_detailed_high_exposure_adds_cost_benefit(self):
+        details = FrameworkSelector.suggest_detailed(
+            DecisionType.budget_adjustment, False, impact_score=2, financial_exposure=3_000_000.0,
+        )
+        frameworks = [d["framework"] for d in details]
+        assert FrameworkType.cost_benefit_analysis in frameworks
+
+    def test_pairs_well_with_references_valid_frameworks(self):
+        all_fw = set(FrameworkType)
+        for fw, entry in FRAMEWORK_CATALOG.items():
+            for pair in entry["pairs_well_with"]:
+                assert pair in all_fw, f"pairs_well_with inválido em {fw.value}: {pair}"
+
+    def test_recommended_for_references_valid_decision_types(self):
+        all_dt = set(DecisionType)
+        for fw, entry in FRAMEWORK_CATALOG.items():
+            for dt in entry["recommended_for"]:
+                assert dt in all_dt, f"recommended_for inválido em {fw.value}: {dt}"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

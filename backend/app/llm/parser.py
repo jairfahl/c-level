@@ -54,12 +54,27 @@ class ResponseParser:
             LLMParseError: Se nenhum JSON válido for encontrado ou a validação Pydantic falhar.
         """
         data = ResponseParser._extract_json(raw_text)
+        ResponseParser._normalize_game_theory(data)
         try:
             return LLMAnalysisResult.model_validate(data)
         except ValidationError as exc:
             raise LLMParseError(
                 f"LLM output failed schema validation: {exc}"
             ) from exc
+
+    @staticmethod
+    def _normalize_game_theory(data: dict[str, Any]) -> None:
+        """Set game_theory_model to None when the LLM returns it with null sub-fields.
+
+        The prompt contract always includes the game_theory_model key, so the LLM
+        often returns it with null values even when game theory is not active.
+        """
+        gt = data.get("game_theory_model")
+        if gt is None:
+            return
+        # If it's a dict where all values are None/empty, discard it
+        if isinstance(gt, dict) and all(v is None or v == [] or v == {} for v in gt.values()):
+            data["game_theory_model"] = None
 
     @staticmethod
     def _extract_json(text: str) -> dict[str, Any]:

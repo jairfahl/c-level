@@ -29,7 +29,12 @@ _FRAMEWORK_DEFAULT_METRICS: dict[FrameworkType, list[str]] = {
     FrameworkType.game_theory:      ["VPL", "TIR", "Payback", "Custo do Capital"],
     FrameworkType.trade_off:        ["EBITDA", "Custo Médio Ponderado de Capital"],
     FrameworkType.risk_matrix:      ["VaR", "Exposição Financeira", "Índice de Liquidez"],
-    FrameworkType.capital_allocation: ["ROIC", "WACC", "VPL", "TIR"],
+    FrameworkType.capital_allocation:    ["ROIC", "WACC", "VPL", "TIR"],
+    FrameworkType.decision_matrix:       ["Score Ponderado", "Critérios de Decisão", "Ranking de Alternativas"],
+    FrameworkType.cost_benefit_analysis: ["NPV", "TIR", "Payback Period", "Relação Custo-Benefício"],
+    FrameworkType.decision_tree:         ["EMV", "Probabilidade por Ramo", "Payoff Esperado"],
+    FrameworkType.swot_analysis:         ["Forças", "Fraquezas", "Oportunidades", "Ameaças"],
+    FrameworkType.delphi_method:         ["Grau de Consenso", "Convergência de Opiniões", "Stakeholder Alignment"],
 }
 
 _FALLBACK_RECOMMENDATION = (
@@ -70,8 +75,15 @@ class FallbackHandler:
 
         metrics = _FRAMEWORK_DEFAULT_METRICS.get(ctx.framework_selected, [])
 
+        recommendation = _FALLBACK_RECOMMENDATION
+        if ctx.heuristics_context:
+            recommendation += (
+                f"\n\nContexto histórico: {len(ctx.heuristics_context)} "
+                "heurística(s) organizacional(is) ativa(s) foram consideradas."
+            )
+
         return LLMAnalysisResult(
-            recommendation=_FALLBACK_RECOMMENDATION,
+            recommendation=recommendation,
             financial_metrics_impacted=metrics,
             scenario_summary=None,
             implicit_assumptions_found=[],
